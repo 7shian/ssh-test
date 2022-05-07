@@ -22,6 +22,10 @@ app.use(sessions({
   secret: 'beibei',
   saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 10 },
+  store: new FileStore({
+    path: "./sessions",
+    reapInterval: 180,//s
+  }),
   resave: true,
 }))
 var session
