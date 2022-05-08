@@ -4,6 +4,7 @@ import mysql   from 'mysql'
 import sessions from 'express-session'
 import cookieParser from 'cookie-parser'
 import file from 'session-file-store'
+import bodyParser from 'body-parser'
 import util from 'util'
 // directory
 import { dirname } from 'path'
