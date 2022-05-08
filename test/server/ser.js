@@ -4,13 +4,14 @@ import mysql   from 'mysql'
 import sessions from 'express-session'
 import cookieParser from 'cookie-parser'
 import file from 'session-file-store'
-import promisify from 'util'
+import util from 'util'
 // directory
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = dirname(__filename)
 const __rootname = dirname(__dirname)
+const promisify = util.promisify
 // config and connect to mysql
 import { config }  from './config.js'
 var connection = mysql.createConnection(config.mysql)
