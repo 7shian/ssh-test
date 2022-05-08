@@ -3,6 +3,7 @@ import express from 'express'
 import mysql   from 'mysql'
 import sessions from 'express-session'
 import cookieParser from 'cookie-parser'
+import file from 'session-file-store'
 // directory
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -18,6 +19,7 @@ const port = 5555
 // set the cookie parser
 app.use(cookieParser())
 // session
+var FileStore = file(sessions)
 app.use(sessions({
   secret: 'beibei',
   saveUninitialized: false,
@@ -40,19 +42,12 @@ connection.connect(err => {
   if(err) throw err
   console.log("MYSQL Connected")
 })
-// initialize Table
-connection.query('CREATE TABLE IF NOT EXISTS users   (uid VARCHAR(32), username VARCHAR(64), password VARCHAR(64), mail VARCHAR(64), phone VARCHAR(32))')
-connection.query('CREATE TABLE IF NOT EXISTS wallet  (wid VARCHAR(32), name VARCHAR(32), code VARCHAR(64))')
-connection.query('CREATE TABLE IF NOT EXISTS history (hid VARCHAR(32), time VARCHAR(64), item VARCHAR(64), money VARCHAR(32), drawee VARCHAR(64))')
-connection.query('CREATE TABLE IF NOT EXISTS rel_wu  (wuid VARCHAR(32), wid VARCHAR(32), uid VARCHAR(32), nickname VARCHAR(64))')
-connection.query('CREATE TABLE IF NOT EXISTS rel_wh  (whid VARCHAR(32), wid VARCHAR(32), hid VARCHAR(32), state VARCHAR(32))')
-connection.query('CREATE TABLE IF NOT EXISTS rel_hu  (huid VARCHAR(32), hid VARCHAR(32), uid VARCHAR(32), state VARCHAR(32))')
 // insert user 
 app.get('/signupUser', (req, res) => {
   let name = req.query.username
   let pswd = req.query.password
   let post = {username: name, password: pswd}
-  let sql  = 'INSERT INTO users SET ?'
+  let sql  = 'INSERT INTO user SET ?'
   connection.query(sql, post, err => {
     if(err) throw err
     res.send("User is added")
@@ -62,7 +57,7 @@ app.get('/signupUser', (req, res) => {
 app.get('/loginUser', (req, res) => {
   let name = req.query.username
   let pswd = req.query.password
-  let sql  = `SELECT * FROM users WHERE username = ${name}`
+  let sql  = `SELECT * FROM user WHERE username = ${name}`
   connection.query(sql, (err, results) => {
     if(err) res.send("No this user")
     else if(results == []) res.send("No User Name")
@@ -78,13 +73,13 @@ app.get('/loginUser', (req, res) => {
 // showAll user
 app.get('/showAll-user', (req, res) => {
   console.log(req.session.username)
-  let sql = `SELECT COUNT(*) rows FROM users`
+  let sql = `SELECT COUNT(*) rows FROM user`
   var count = 0
   connection.query(sql, (err, results) => {
     if(err) throw err
     count = results[0].rows
   })
-  sql = `SELECT * FROM users`
+  sql = `SELECT * FROM user`
   let str = ""
   connection.query(sql, (err, results) => {
     if(err) throw err
@@ -95,16 +90,24 @@ app.get('/showAll-user', (req, res) => {
   })
 })
 // insert user wallet
-app.get('insertWallet', (req, res) => {
+app.get('/insertWallet', (req, res) => {
   let wname = req.query.wallet
-  let post = {name: wname}
+  console.log(wname)
+  /*
+    generate cache random id code for wallet
+  */ 
+  let random = 123
+  let post = {name: wname, code: random}
   let sql  = 'INSERT INTO wallet SET ?'
-  connection.query(sql, )
+  connection.query(sql, post, err => {
+    if(err) throw err
+    res.send(`Wallet is added, and the id_code is ${random}`)
+  })
 })
 
 // select user
 app.get('/selectUser', (req, res) => {
-  let sql = 'SELECT * FROM users'
+  let sql = 'SELECT * FROM user'
   connection.query(sql, (err, results) => {
     if(err) throw err
     console.log(results)
@@ -114,7 +117,7 @@ app.get('/selectUser', (req, res) => {
 // update user
 app.get('/updateUser/:password', (req, res) => {
   let newName = 'Updated'
-  let sql = `UPDATE users SET username = '${newName}' WHERE password = ${req.params.password}`
+  let sql = `UPDATE user SET username = '${newName}' WHERE password = ${req.params.password}`
   connection.query(sql, err => {
     if(err) throw err
     res.send("Username updated")
@@ -122,7 +125,7 @@ app.get('/updateUser/:password', (req, res) => {
 })
 // delete user
 app.get('/deleteUser/:password', (req, res) => {
-  let sql = `DELETE FROM users WHERE password = ${req.params.password}`
+  let sql = `DELETE FROM user WHERE password = ${req.params.password}`
   connection.query(sql, err => {
     if(err) throw err
     res.send("User deleted")

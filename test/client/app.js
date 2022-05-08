@@ -33,6 +33,7 @@ $(document).ready(function() {
     $.get('./insertWallet', {
       wallet: $('#insert-wallet-form input[name=wallet]').val(),
     }, (data) => {
+      $('#insert-wallet-output').html("here")
       $('#insert-wallet-output').html(data)
     })
   })
