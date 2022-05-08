@@ -175,7 +175,7 @@ app.post('/checkItems', (req, res) => {
     uid: req.session.uid,
     date: req.body.date
   }
-  let sql = `SELECT focusWallet FROM user WHERE uid=1`
+  let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
     sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time="${param.date}")`
