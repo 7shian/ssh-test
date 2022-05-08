@@ -5,14 +5,12 @@ import sessions from 'express-session'
 import cookieParser from 'cookie-parser'
 import file from 'session-file-store'
 import bodyParser from 'body-parser'
-import util from 'util'
 // directory
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = dirname(__filename)
 const __rootname = dirname(__dirname)
-const promisify = util.promisify
 // config and connect to mysql
 import { config }  from './config.js'
 var connection = mysql.createConnection(config.mysql)
@@ -137,18 +135,28 @@ app.get('/deleteUser/:password', (req, res) => {
     res.send("User deleted")
   })
 })
+const queryPromise = sql => {
+  return new Promise((res, rej) => {
+    connection.query(sql, (err, rows) => {
+      if(err) rej(err);
+      else res(rows)
+    })
+  })
+}
 // get all item & money from the given day
 app.post('/checkItems', (req, res) => {
-  const sqlfunc = promisify(connection.query);
+  function promisifysql(f) {
+    return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
+  }
   let param = {
     uid: req.session.uid,
     date: req.body.date
   }
   let sql = `SELECT focusWallet FROM user WHERE uid=1`
-  sqlfunc(sql).then(result => {
+  queryPromise(sql).then(result => {
     param.wid = result;
     sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time=${param.date})`
-    return sqlfunc(sql);
+    return queryPromise(sql);
   }).then(result => {
     let ret = {
       date: param.date,
