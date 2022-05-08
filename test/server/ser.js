@@ -4,6 +4,7 @@ import mysql   from 'mysql'
 import sessions from 'express-session'
 import cookieParser from 'cookie-parser'
 import file from 'session-file-store'
+import promisify from 'util'
 // directory
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -65,6 +66,7 @@ app.get('/loginUser', (req, res) => {
       session = req.session
       session.username = name
       session.password = pswd
+      session.uid = results[0].uid
       res.send("Success!")
     }
     else res.send("password is wrong")
@@ -129,5 +131,25 @@ app.get('/deleteUser/:password', (req, res) => {
   connection.query(sql, err => {
     if(err) throw err
     res.send("User deleted")
+  })
+})
+// get all item & money from the given day
+app.get('/checkItems', (req, res) => {
+  const sqlfunc = promisify(connection.query);
+  let param = {
+    uid: req.session.uid,
+    date: req.body.date
+  }
+  let sql = `SELECT focusWallet FROM user WHERE uid=1`
+  sqlfunc(sql).then(result => {
+    param.wid = result;
+    sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time=${param.date})`
+    return sqlfunc(sql);
+  }).then(result => {
+    let ret = {
+      date: param.date,
+      data: result
+    }
+    res.send(JSON.stringify(ret));
   })
 })
