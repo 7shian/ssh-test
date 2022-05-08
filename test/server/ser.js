@@ -203,6 +203,34 @@ app.get('/getMember', (req, res) => {
     })
   })
 })
+// set nickname
+app.get('/setNickname', (req, res) => {
+  let uid, wid
+  let wname = req.query.wname
+  let nick  = req.query.nickname
+  let uname = req.session.username
+  let sql = `SELECT uid FROM user WHERE username = ${uname}`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    uid = results[0].uid
+    sql = `SELECT wid FROM wallet WHERE wname = ${wname}`
+    connection.query(sql, (err, results) => {
+      if(err) throw err
+      wid = results[0].wid
+      sql = `UPDATE 
+               userWallet SET nickname = '${nick}' 
+             WHERE 
+               uid = ${uid} AND
+               wid = ${wid}
+            `
+      connection.query(sql, err => {
+        if(err) throw err
+        res.send("Nickname is updated!")
+      })
+    })
+  })
+})
+
 
 // select user
 app.get('/selectUser', (req, res) => {
