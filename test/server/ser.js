@@ -45,6 +45,14 @@ connection.connect(err => {
   if(err) throw err
   console.log("MYSQL Connected")
 })
+const queryPromise = sql => {
+  return new Promise((res, rej) => {
+    connection.query(sql, (err, rows) => {
+      if(err) rej(err);
+      else res(rows)
+    })
+  })
+}
 // insert user 
 app.get('/signupUser', (req, res) => {
   let name = req.query.username
@@ -135,14 +143,6 @@ app.get('/deleteUser/:password', (req, res) => {
     res.send("User deleted")
   })
 })
-const queryPromise = sql => {
-  return new Promise((res, rej) => {
-    connection.query(sql, (err, rows) => {
-      if(err) rej(err);
-      else res(rows)
-    })
-  })
-}
 
 // get all item & money from the given day
 app.post('/checkItems', (req, res) => {
@@ -156,12 +156,9 @@ app.post('/checkItems', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=1`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time=${param.date})`
-    console.log(sql);
-    connection.query(sql, (err, rows) => {console.log(JSON.stringify(result))});
+    sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time="${param.date}")`
     return queryPromise(sql);
   }).then(result => {
-    console.log(JSON.stringify(result));
     let ret = {
       date: param.date,
       data: result
