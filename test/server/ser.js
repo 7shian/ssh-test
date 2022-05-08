@@ -105,9 +105,6 @@ app.get('/showAll-user', (req, res) => {
 app.get('/insertWallet', (req, res) => {
   // console.log(req.session.username)
   let wname = req.query.wallet
-  /*
-    generate cache random id code for wallet
-  */
   //wid needed to generate unique code
   //let hashed = crypto.createHash("sha256").update(wname + "//" + wid, "utf8").digest("hex").substring(1,8);
   let random = 123
@@ -115,15 +112,18 @@ app.get('/insertWallet', (req, res) => {
   let sql  = 'INSERT INTO wallet SET ?'
   connection.query(sql, post, err => {
     if(err) throw err
+    
   })
-  
-  sql  = `INSERT INTO userWallet (uid, wid) VALUES 
-          ((SELECT uid FROM user WHERE username = ${req.session.username}),
-           (SELECT wid FROM wallet WHERE wname = ${wname}))`
-  connection.query(sql, err => {
-    if(err) throw err
-    res.send(`Wallet is added to user ${req.session.username}`)
-  })
+  sql  = `INSERT INTO 
+            userWallet (uid, wid) 
+          VALUES (
+            (SELECT uid FROM user WHERE username = ${req.session.username}),
+            (SELECT wid FROM wallet WHERE wname = ${wname})
+          )`
+    connection.query(sql, err => {
+      if(err) throw err
+      res.send(`Wallet is added to user ${req.session.username}`)
+    })
 })
 // delete user wallet 
 app.get('/deleteWallet', (req, res) => {
@@ -138,6 +138,30 @@ app.get('/deleteWallet', (req, res) => {
   connection.query(sql, err => { if(err) throw err })
   // res.send(`Wallet is deleted!`)
 })
+// insert history
+app.get('/insertHistory', (req, res) => {
+  let money = req.query.money
+  let uname = req.session.username
+  let item = req.query.item
+  let time = req.query.time
+  let post = {time: time, item: item, money: money, drawee: uname}
+  let sql  = `INSERT INTO history SET ?`
+  connection.query(sql, post, err => {
+    if(err) throw err
+    sql = `INSERT INTO 
+             userHistory (uid, hid, ratio) 
+           VALUES (
+             (SELECT uid FROM user WHERE username = ${uname}),
+             (SELECT hid FROM history WHERE money = ${money} AND item = ${item} AND time = "${time}"), 
+             1
+           )`
+    connection.query(sql, err => {
+      if(err) throw err
+      res.send(`History is added !`)
+    })
+  })
+})
+
 
 // select user
 app.get('/selectUser', (req, res) => {
