@@ -82,4 +82,22 @@ $(document).ready(function() {
       $('#record-receipt-output').html(data)
     })
   })
+  // join wallet
+  $('#join-wallet-form button[type="submit"]').click((event) => {
+    event.preventDefault()
+    $.get('./joinWallet', {
+      wallet: $('#join-wallet-form input[name=wallet]').val(),
+    }, (data) => {
+      $('join-wallet-output').html(data)
+    })
+  })
+  // get member from wallet
+  $('#get-member-form button[type="submit"]').click((event) => {
+    event.preventDefault()
+    $.get('./getMember', {
+      wname: $('#get-member-form input[name=wallet]').val(),
+    }, (data) => {
+      $('#get-member-output').html(data)
+    })
+  })
 })
