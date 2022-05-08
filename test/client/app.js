@@ -45,4 +45,30 @@ $(document).ready(function() {
       $('#delete-wallet-output').html(data)
     })
   })
+  // get data from date
+  document.querySelector('#get-data-form button[type="submit"]').onclick = (event) => {
+    event.preventDefault();
+    window.fetch('/checkItems', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8"
+      },
+      body: JSON.stringify({
+        date: document.querySelector("#get-data-form [name=wallet]").value
+      })
+    }).then(function(response) {
+      if (response.status >= 200 && response.status < 300)
+        return response;
+      else
+        throw new Error(response.status +":"+response.statusText);
+    }).then(response => response.json()).then(function(response) {
+      let str;
+      Object.entries(response).forEach(([key, value]) => {
+        str += `\"${key}\":\"${value}\"<br>`;
+      });
+      document.getElementById("get-data-output").innerHTML = str;
+    }).catch(function(err) {
+      console.log("Fetch Error :-S", err);
+    });
+  }
 })

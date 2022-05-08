@@ -4,6 +4,8 @@ import mysql   from 'mysql'
 import sessions from 'express-session'
 import cookieParser from 'cookie-parser'
 import file from 'session-file-store'
+import bodyParser from 'body-parser'
+import crypto from 'crypto';
 // directory
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -18,6 +20,8 @@ const app  = express()
 const port = 5554
 // set the cookie parser
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 // session
 var FileStore = file(sessions)
 app.use(sessions({
@@ -42,6 +46,14 @@ connection.connect(err => {
   if(err) throw err
   console.log("MYSQL Connected")
 })
+const queryPromise = sql => {
+  return new Promise((res, rej) => {
+    connection.query(sql, (err, rows) => {
+      if(err) rej(err);
+      else res(rows)
+    })
+  })
+}
 // insert user 
 app.get('/signupUser', (req, res) => {
   let name = req.query.username
@@ -65,6 +77,7 @@ app.get('/loginUser', (req, res) => {
       session = req.session
       session.username = name
       session.password = pswd
+      session.uid = results[0].uid
       res.send("Success!")
     }
     else res.send("password is wrong")
@@ -94,7 +107,9 @@ app.get('/insertWallet', (req, res) => {
   let wname = req.query.wallet
   /*
     generate cache random id code for wallet
-  */ 
+  */
+  //wid needed to generate unique code
+  //let hashed = crypto.createHash("sha256").update(wname + "//" + wid, "utf8").digest("hex").substring(1,8);
   let random = 123
   let post = {wname: wname, code: random}
   let sql  = 'INSERT INTO wallet SET ?'
@@ -148,5 +163,30 @@ app.get('/deleteUser/:password', (req, res) => {
   connection.query(sql, err => {
     if(err) throw err
     res.send("User deleted")
+  })
+})
+
+// get all item & money from the given day
+app.post('/checkItems', (req, res) => {
+  function promisifysql(f) {
+    return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
+  }
+  let param = {
+    uid: req.session.uid,
+    date: req.body.date
+  }
+  let sql = `SELECT focusWallet FROM user WHERE uid=1`
+  queryPromise(sql).then(result => {
+    param.wid = result[0].focusWallet;
+    sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time="${param.date}")`
+    return queryPromise(sql);
+  }).then(result => {
+    let ret = {
+      date: param.date,
+      data: result
+    }
+    res.send(JSON.stringify(ret));
+  }).catch(err => {
+    res.status(500).send(e);
   })
 })
