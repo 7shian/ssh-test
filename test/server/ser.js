@@ -90,7 +90,7 @@ app.get('/showAll-user', (req, res) => {
 })
 // insert user wallet
 app.get('/insertWallet', (req, res) => {
-  console.log(req.session.username)
+  // console.log(req.session.username)
   let wname = req.query.wallet
   /*
     generate cache random id code for wallet
@@ -107,7 +107,21 @@ app.get('/insertWallet', (req, res) => {
            (SELECT wid FROM wallet WHERE wname = ${wname}))`
   connection.query(sql, err => {
     if(err) throw err
+    res.send(`Wallet is added to user ${req.session.username}`)
   })
+})
+// delete user wallet 
+app.get('/deleteWallet', (req, res) => {
+  let wname = req.query.wallet
+  let uname = req.session.username
+  let sql   = `DELETE FROM userWallet WHERE (uid) LIKE
+              (SELECT uid FROM user WHERE username = ${uname})
+              AND (wid) LIKE
+              (SELECT wid FROM wallet WHERE wname = ${wname})`
+  connection.query(sql, err => { if(err) throw err })
+  sql = `DELETE FROM wallet WHERE (wname) LIKE ${wname}`
+  connection.query(sql, err => { if(err) throw err })
+  // res.send(`Wallet is deleted!`)
 })
 
 // select user

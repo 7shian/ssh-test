@@ -36,4 +36,13 @@ $(document).ready(function() {
       $('#insert-wallet-output').html(data)
     })
   })
+  // delete the wallet 
+  $('#delete-wallet-form button[type="submit"]').click((event) => {
+    event.preventDefault()
+    $.get('./deleteWallet', {
+      wallet: $('#delete-wallet-form input[name=wallet]').val(),
+    }, (data) => {
+      $('#delete-wallet-output').html(data)
+    })
+  })
 })
