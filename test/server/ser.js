@@ -134,7 +134,7 @@ app.get('/deleteUser/:password', (req, res) => {
   })
 })
 // get all item & money from the given day
-app.get('/checkItems', (req, res) => {
+app.post('/checkItems', (req, res) => {
   const sqlfunc = promisify(connection.query);
   let param = {
     uid: req.session.uid,
