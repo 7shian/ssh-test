@@ -161,6 +161,75 @@ app.get('/insertHistory', (req, res) => {
     })
   })
 })
+// join wallet
+app.get('/joinWallet', (req, res) => {
+  let wallet = req.query.wallet
+  let uname  = req.session.username
+  // should use the wallet code 
+  let sql = `INSERT INTO
+               userWallet (uid, wid)  
+             VALUES (
+               (SELECT uid FROM user WHERE username = ${uname}),
+               (SELECT wid FROM wallet WHERE wname = ${wallet})
+             )
+            `
+  // let sql = `SELECT wid FROM wallet WHERE wname = ${wallet}`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    res.send(`User has joined the wallet: ${wallet}`)
+  })
+})
+// get member from wallet
+app.get('/getMember', (req, res) => {
+  let wname = req.query.wname
+  let str = ""
+  let sql = `SELECT wid FROM wallet WHERE wname = ${wname}`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    let wid = results[0].wid
+    sql = `SELECT uid FROM userWallet WHERE wid = ${wid}`
+    connection.query(sql, (err, results) => {
+      if(err) throw err
+      for(var i=0; i<results.length; i++) {
+        let uid = results[i].uid
+        sql = `SELECT username FROM user WHERE uid = ${uid}`
+        connection.query(sql, (err, results) => {
+          if(err) throw err
+          str = str + `${results[0].username}<br>`
+          console.log(str) // here has output
+        })
+      }
+      // console.log(str) -- no output
+    })
+  })
+})
+// set nickname
+app.get('/setNickname', (req, res) => {
+  let uid, wid
+  let wname = req.query.wname
+  let nick  = req.query.nickname
+  let uname = req.session.username
+  let sql = `SELECT uid FROM user WHERE username = ${uname}`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    uid = results[0].uid
+    sql = `SELECT wid FROM wallet WHERE wname = ${wname}`
+    connection.query(sql, (err, results) => {
+      if(err) throw err
+      wid = results[0].wid
+      sql = `UPDATE 
+               userWallet SET nickname = '${nick}' 
+             WHERE 
+               uid = ${uid} AND
+               wid = ${wid}
+            `
+      connection.query(sql, err => {
+        if(err) throw err
+        res.send("Nickname is updated!")
+      })
+    })
+  })
+})
 
 
 // select user
