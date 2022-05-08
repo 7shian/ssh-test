@@ -167,7 +167,7 @@ app.get('/joinWallet', (req, res) => {
   let uname  = req.session.username
   // should use the wallet code 
   let sql = `INSERT INTO
-               userwallet (uid, wid)  
+               userWallet (uid, wid)  
              VALUES (
                (SELECT uid FROM user WHERE username = ${uname}),
                (SELECT wid FROM wallet WHERE wname = ${wallet})
@@ -190,15 +190,16 @@ app.get('/getMember', (req, res) => {
     sql = `SELECT uid FROM userWallet WHERE wid = ${wid}`
     connection.query(sql, (err, results) => {
       if(err) throw err
-      for(var i=0; i<results.rows; i++) {
-        let uid = results[0].uid
+      for(var i=0; i<results.length; i++) {
+        let uid = results[i].uid
         sql = `SELECT username FROM user WHERE uid = ${uid}`
         connection.query(sql, (err, results) => {
           if(err) throw err
-          str = str + results[0].username + " "
+          str = str + `${results[0].username}<br>`
+          console.log(str) // here has output
         })
       }
-      res.send(str)
+      // console.log(str) -- no output
     })
   })
 })
