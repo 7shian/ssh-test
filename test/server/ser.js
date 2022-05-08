@@ -5,6 +5,7 @@ import sessions from 'express-session'
 import cookieParser from 'cookie-parser'
 import file from 'session-file-store'
 import bodyParser from 'body-parser'
+import crypto from 'crypto';
 // directory
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -106,7 +107,9 @@ app.get('/insertWallet', (req, res) => {
   let wname = req.query.wallet
   /*
     generate cache random id code for wallet
-  */ 
+  */
+  //wid needed to generate unique code
+  //let hashed = crypto.createHash("sha256").update(wname + "//" + wid, "utf8").digest("hex").substring(1,8);
   let random = 123
   let post = {wname: wname, code: random}
   let sql  = 'INSERT INTO wallet SET ?'
