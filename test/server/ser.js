@@ -15,7 +15,7 @@ import { config }  from './config.js'
 var connection = mysql.createConnection(config.mysql)
 // construct a web server instance
 const app  = express()
-const port = 5555
+const port = 5554
 // set the cookie parser
 app.use(cookieParser())
 // session
@@ -72,7 +72,6 @@ app.get('/loginUser', (req, res) => {
 })
 // showAll user
 app.get('/showAll-user', (req, res) => {
-  console.log(req.session.username)
   let sql = `SELECT COUNT(*) rows FROM user`
   var count = 0
   connection.query(sql, (err, results) => {
@@ -91,17 +90,23 @@ app.get('/showAll-user', (req, res) => {
 })
 // insert user wallet
 app.get('/insertWallet', (req, res) => {
+  console.log(req.session.username)
   let wname = req.query.wallet
-  console.log(wname)
   /*
     generate cache random id code for wallet
   */ 
   let random = 123
-  let post = {name: wname, code: random}
+  let post = {wname: wname, code: random}
   let sql  = 'INSERT INTO wallet SET ?'
   connection.query(sql, post, err => {
     if(err) throw err
-    res.send(`Wallet is added, and the id_code is ${random}`)
+  })
+  
+  sql  = `INSERT INTO userWallet (uid, wid) VALUES 
+          ((SELECT uid FROM user WHERE username = ${req.session.username}),
+           (SELECT wid FROM wallet WHERE wname = ${wname}))`
+  connection.query(sql, err => {
+    if(err) throw err
   })
 })
 
