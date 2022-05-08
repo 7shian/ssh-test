@@ -71,4 +71,15 @@ $(document).ready(function() {
       console.log("Fetch Error :-S", err);
     });
   }
+  // insert the receipt to history
+  $('#record-receipt-form button[type="submit"]').click((event) => {
+    event.preventDefault()
+    $.get('./insertHistory', {
+      money: $('#record-receipt-form input[name=money]').val(),
+      item:  $('#record-receipt-form input[name=item]').val(),
+      time:  $('#record-receipt-form input[name=time]').val(),
+    }, (data) => {
+      $('#record-receipt-output').html(data)
+    })
+  })
 })

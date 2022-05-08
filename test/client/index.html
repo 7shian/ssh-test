@@ -29,14 +29,13 @@
   </form>
   <div id="showAll-user-output"></div>
 
-  <br><br>
-
   <h3>Wallet Create</h3>
   <form id="insert-wallet-form">
     wallet name: <input type="text" name="wallet"><br>
     <button type="submit">confirm</button>
   </form>
   <div id="insert-wallet-output"></div>
+
   <h3>get data</h3>
   <form id="get-data-form">
     date: <input type="text" name="wallet"><br>
@@ -50,6 +49,24 @@
     <button type="submit">confirm</button>
   </form>
   <div id="delete-wallet-output"></div>
+
+  <h3>Receipt Record</h3>
+  <form id="record-receipt-form">
+    money: <input type="text" name="money"><br>
+    item: <input type="text" name="item"><br>
+    <!-- Assume the recceipt is equivalently divided -->
+    time: <input type="text" name="time"><br>
+    <button type="submit">confirm</button>
+  </form>
+  <div id="record-receipt-output"></div>
+
+  <h3>Get Wallet Member</h3>
+  <form id="get-member-form">
+    wallet name: <input type="text" name="wallet"><br>
+    <button type="submit">confirm</button>
+  </form>
+  <div id="get-member-output"></div>
+
 
   <script src="./app.js"></script>
 </body>
