@@ -161,7 +161,47 @@ app.get('/insertHistory', (req, res) => {
     })
   })
 })
-
+// join wallet
+app.get('/joinWallet', (req, res) => {
+  let wallet = req.query.wallet
+  let uname  = req.session.username
+  // should use the wallet code 
+  let sql = `INSERT INTO
+               userwallet (uid, wid)  
+             VALUES (
+               (SELECT uid FROM user WHERE username = ${uname}),
+               (SELECT wid FROM wallet WHERE wname = ${wallet})
+             )
+            `
+  // let sql = `SELECT wid FROM wallet WHERE wname = ${wallet}`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    res.send(`User has joined the wallet: ${wallet}`)
+  })
+})
+// get member from wallet
+app.get('/getMember', (req, res) => {
+  let wname = req.query.wname
+  let str = ""
+  let sql = `SELECT wid FROM wallet WHERE wname = ${wname}`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    let wid = results[0].wid
+    sql = `SELECT uid FROM userWallet WHERE wid = ${wid}`
+    connection.query(sql, (err, results) => {
+      if(err) throw err
+      for(var i=0; i<results.rows; i++) {
+        let uid = results[0].uid
+        sql = `SELECT username FROM user WHERE uid = ${uid}`
+        connection.query(sql, (err, results) => {
+          if(err) throw err
+          str = str + results[0].username + " "
+        })
+      }
+      res.send(str)
+    })
+  })
+})
 
 // select user
 app.get('/selectUser', (req, res) => {
