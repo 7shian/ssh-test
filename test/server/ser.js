@@ -154,7 +154,7 @@ app.post('/checkItems', (req, res) => {
   }
   let sql = `SELECT focusWallet FROM user WHERE uid=1`
   queryPromise(sql).then(result => {
-    param.wid = result;
+    param.wid = result[0].focusWallet;
     sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time=${param.date})`
     return queryPromise(sql);
   }).then(result => {
@@ -163,5 +163,7 @@ app.post('/checkItems', (req, res) => {
       data: result
     }
     res.send(JSON.stringify(ret));
+  }).catch(err => {
+    res.status(500).send(e);
   })
 })
