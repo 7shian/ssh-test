@@ -21,6 +21,8 @@ const app  = express()
 const port = 5555
 // set the cookie parser
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 // session
 var FileStore = file(sessions)
 app.use(sessions({
