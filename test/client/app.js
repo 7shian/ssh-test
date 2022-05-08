@@ -54,7 +54,7 @@ $(document).ready(function() {
       else
         throw new Error(response.status +":"+response.statusText);
     }).then(response => response.json()).then(function(response) {
-      let str = "date: " + response.date + "<br>";
+      let str;
       Object.entries(response).forEach(([key, value]) => {
         str += `\"${key}\":\"${value}\"<br>`;
       });

@@ -143,6 +143,7 @@ const queryPromise = sql => {
     })
   })
 }
+
 // get all item & money from the given day
 app.post('/checkItems', (req, res) => {
   function promisifysql(f) {
@@ -156,8 +157,11 @@ app.post('/checkItems', (req, res) => {
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
     sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time=${param.date})`
+    console.log(sql);
+    connection.query(sql, (err, rows) => {console.log(JSON.stringify(result))});
     return queryPromise(sql);
   }).then(result => {
+    console.log(JSON.stringify(result));
     let ret = {
       date: param.date,
       data: result
