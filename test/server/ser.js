@@ -138,7 +138,7 @@ app.get('/insertWallet2', (req, res) => {
   queryPromise(sql).then(result => {
     param.wid = result[0].wid + 1;
     param.code = crypto.createHash("sha256").update(param.wname + "//" + param.wid, "utf8").digest("hex").substring(1,8);
-    sql = `INSERT INTO wallet SET (wname, code) VALUES(${param.wname}, ${param.code})`
+    sql = `INSERT INTO wallet SET (wname, code) VALUES("${param.wname}", "${param.code}")`
     return queryPromise(sql);
   }).then(none => {
     sql = `INSERT INTO userWallet SET (uid, wid) VALUES(${param.uid}, ${param.wid})`
@@ -189,7 +189,7 @@ app.get('/insertHistory', (req, res) => {
     payer: null
   }
   let sql = `INSERT INTO history (time, item, money, tag) 
-            VALUES ("${param.time}", ${param.item}, ${param.money}, ${param.tag})`
+            VALUES ("${param.time}", "${param.item}", ${param.money}, "${param.tag}")`
   let prom = queryPromise(sql).then(none => {
     sql = `SELECT MAX(hid) AS hid FROM history`
     return queryPromise(sql);
