@@ -48,7 +48,7 @@ $(document).ready(function() {
   // get data from date
   document.querySelector('#get-data-form button[type="submit"]').onclick = (event) => {
     event.preventDefault();
-    window.fetch('/checkItems', {
+    window.fetch('/splitMoney1', {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8"

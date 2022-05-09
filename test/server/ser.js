@@ -57,8 +57,9 @@ const queryPromise = sql => {
 // insert user 
 app.get('/signupUser', (req, res) => {
   let name = req.query.username
+  let email = req.query.mail
   let pswd = req.query.password
-  let post = {username: name, password: pswd}
+  let post = {username: name, password: pswd, mail: email}
   let sql  = 'INSERT INTO user SET ?'
   connection.query(sql, post, err => {
     if(err) throw err
@@ -103,6 +104,7 @@ app.get('/showAll-user', (req, res) => {
 })
 // insert user wallet
 app.get('/insertWallet', (req, res) => {
+  
   // console.log(req.session.username)
   let wname = req.query.wallet
   //wid needed to generate unique code
@@ -124,6 +126,28 @@ app.get('/insertWallet', (req, res) => {
       if(err) throw err
       res.send(`Wallet is added to user ${req.session.username}`)
     })
+})
+// insert user wallet with code added and promise async
+app.get('/insertWallet2', (req, res) => {
+  let param = {
+    uid: req.session.uid,
+    wname: req.query.wallet
+  }
+  let sql = `SELECT MAX(wid) as wid FROM wallet`
+  queryPromise(sql).then(result => {
+    param.wid = result[0].wid + 1;
+    param.code = crypto.createHash("sha256").update(param.wname + "//" + param.wid, "utf8").digest("hex").substring(1,8);
+    sql = `INSERT INTO wallet SET (wname, code) VALUES(${param.wname}, ${param.code})`
+    return queryPromise(sql);
+  }).then(none => {
+    sql = `INSERT INTO userWallet SET (uid, wid) VALUES(${param.uid}, ${param.wid})`
+    return queryPromise(sql);
+  }).then(none => {
+    res.send("Success");
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
 })
 // delete user wallet 
 app.get('/deleteWallet', (req, res) => {
@@ -260,7 +284,7 @@ app.get('/deleteUser/:password', (req, res) => {
 })
 
 // get all item & money from the given day
-app.post('/checkItems', (req, res) => {
+app.post('/splitMoney1', (req, res) => {
   function promisifysql(f) {
     return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
   }
@@ -268,7 +292,7 @@ app.post('/checkItems', (req, res) => {
     uid: req.session.uid,
     date: req.body.date
   }
-  let sql = `SELECT focusWallet FROM user WHERE uid=1`
+  let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
     sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time="${param.date}")`
@@ -280,6 +304,34 @@ app.post('/checkItems', (req, res) => {
     }
     res.send(JSON.stringify(ret));
   }).catch(err => {
-    res.status(500).send(e);
+    console.log(err);
+    res.status(500).send(err);
+  })
+})
+// get total money of each member from the given day
+app.post('/splitMoney2', (req, res) => {
+  function promisifysql(f) {
+    return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
+  }
+  let param = {
+    uid: req.session.uid,
+    date: req.body.date
+  }
+  let ret = { date: param.date }
+  let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
+  queryPromise(sql).then(result => {
+    param.wid = result[0].focusWallet;
+    sql = `SELECT uid, nickname FROM userWallet WHERE wid=${param.wid}`
+    return queryPromise(sql);
+  }).then(result => {
+    ret.nickname = result;
+    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT sub.hid, sub.money from ((SELECT history.hid, history.time, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub) WHERE (sub.wid=${param.wid} AND sub.time=${param.date})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid ORDER BY userHistory.uid`
+    return queryPromise(sql);
+  }).then(result => {
+    ret.money = result;
+    res.send(JSON.stringify(ret));
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
   })
 })
