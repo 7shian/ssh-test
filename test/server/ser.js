@@ -202,12 +202,12 @@ app.post('/insertHistory', (req, res) => {
     param.promises = new Array(result.length);
     for(let i=0; i<result.length; i++) {//parallel
       if(param.uid == result[i].uid) {
-        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, -1)`
+        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.hid}, ${result[i].uid}, -1)`
         param.promises[i] = queryPromise(sql);
       }
       else {
         let ratio = 1/(result.length-1.0);
-        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, ${ratio})`
+        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.hid}, ${result[i].uid}, ${ratio})`
         param.promises[i] = queryPromise(sql);
       }
     }
