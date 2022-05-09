@@ -180,13 +180,13 @@ app.get('/switchWallet', (req, res) => {
 // insert history
 app.get('/insertHistory', (req, res) => {
   let param = {
-    uid = req.session.uid,
-    time = req.query.time,
-    item = req.query.item,
-    money = req.query.money,
-    tag = req.query.tag,
-    getter = req.session.uid,
-    payer = null
+    uid: req.session.uid,
+    time: req.query.time,
+    item: req.query.item,
+    money: req.query.money,
+    tag: req.query.tag,
+    getter: req.session.uid,
+    payer: null
   }
   let sql = `INSERT INTO history (time, item, money, tag) 
             VALUES (${param.time}, ${param.item}, ${param.money}, ${param.tag})`
