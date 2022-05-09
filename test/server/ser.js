@@ -57,8 +57,9 @@ const queryPromise = sql => {
 // insert user 
 app.get('/signupUser', (req, res) => {
   let name = req.query.username
+  let email = req.query.mail
   let pswd = req.query.password
-  let post = {username: name, password: pswd}
+  let post = {username: name, password: pswd, mail: email}
   let sql  = 'INSERT INTO user SET ?'
   connection.query(sql, post, err => {
     if(err) throw err
@@ -103,6 +104,7 @@ app.get('/showAll-user', (req, res) => {
 })
 // insert user wallet
 app.get('/insertWallet', (req, res) => {
+  
   // console.log(req.session.username)
   let wname = req.query.wallet
   //wid needed to generate unique code
@@ -124,6 +126,28 @@ app.get('/insertWallet', (req, res) => {
       if(err) throw err
       res.send(`Wallet is added to user ${req.session.username}`)
     })
+})
+// insert user wallet with code added and promise async
+app.get('/insertWallet2', (req, res) => {
+  let param = {
+    uid: req.session.uid,
+    wname: req.query.wallet
+  }
+  let sql = `SELECT MAX(wid) as wid FROM wallet`
+  queryPromise(sql).then(result => {
+    param.wid = result[0].wid + 1;
+    param.code = crypto.createHash("sha256").update(param.wname + "//" + param.wid, "utf8").digest("hex").substring(1,8);
+    sql = `INSERT INTO wallet SET (wname, code) VALUES(${param.wname}, ${param.code})`
+    return queryPromise(sql);
+  }).then(none => {
+    sql = `INSERT INTO userWallet SET (uid, wid) VALUES(${param.uid}, ${param.wid})`
+    return queryPromise(sql);
+  }).then(none => {
+    res.send("Success");
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
 })
 // delete user wallet 
 app.get('/deleteWallet', (req, res) => {
@@ -280,7 +304,8 @@ app.post('/splitMoney1', (req, res) => {
     }
     res.send(JSON.stringify(ret));
   }).catch(err => {
-    res.status(500).send(e);
+    console.log(err);
+    res.status(500).send(err);
   })
 })
 // get total money of each member from the given day
@@ -306,6 +331,7 @@ app.post('/splitMoney2', (req, res) => {
     ret.money = result;
     res.send(JSON.stringify(ret));
   }).catch(err => {
-    res.status(500).send(e);
+    console.log(err);
+    res.status(500).send(err);
   })
 })
