@@ -300,7 +300,7 @@ app.post('/splitMoney2', (req, res) => {
     return queryPromise(sql);
   }).then(result => {
     ret.nickname = result;
-    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) as totalmoney from userHistory INNER JOIN ((SELECT sub.hid, sub.money from ((SELECT history.hid, history.time, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub) WHERE (sub.wid=${param.wid} AND sub.time=${param.date})) as sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid ORDER BY userHistory.uid`
+    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT sub.hid, sub.money from ((SELECT history.hid, history.time, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub) WHERE (sub.wid=${param.wid} AND sub.time=${param.date})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid ORDER BY userHistory.uid`
     return queryPromise(sql);
   }).then(result => {
     ret.money = result;
