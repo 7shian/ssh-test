@@ -179,26 +179,45 @@ app.get('/switchWallet', (req, res) => {
 })
 // insert history
 app.get('/insertHistory', (req, res) => {
-  let money = req.query.money
-  let uname = req.session.username
-  let item = req.query.item
-  let time = req.query.time
-  let post = {time: time, item: item, money: money, drawee: uname}
-  let sql  = `INSERT INTO history SET ?`
-  connection.query(sql, post, err => {
-    if(err) throw err
-    sql = `INSERT INTO 
-             userHistory (uid, hid, ratio) 
-           VALUES (
-             (SELECT uid FROM user WHERE username = ${uname}),
-             (SELECT hid FROM history WHERE money = ${money} AND item = ${item} AND time = "${time}"), 
-             1
-           )`
-    connection.query(sql, err => {
-      if(err) throw err
-      res.send(`History is added !`)
-    })
-  })
+  let param = {
+    uid = req.session.uid,
+    time = req.query.time,
+    item = req.query.item,
+    money = req.query.money,
+    tag = req.query.tag,
+    getter = req.session.uid,
+    payer = null
+  }
+  let sql = `INSERT INTO history (time, item, money, tag) 
+            VALUES (${param.time}, ${param.item}, ${param.money}, ${param.tag})`
+  let prom = queryPromise(sql).then(none => {
+    sql = `SELECT MAX(hid) AS hid FROM history`
+    return queryPromise(sql);
+  }).then(result => {
+    param.hid = result;
+    sql = `SELECT uid from userWallet where wid=(SELECT focusWallet as wallet FROM user WHERE uid=${param.uid}) ORDER BY uid`
+    return queryPromise(sql);
+  }).then(result => {
+    param.alluser = result; 
+    param.promises = new Array(result.length);
+    for(let i=0; i<result.length; i++) {//parallel
+      if(param.uid == result[i].uid) {
+        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, -1)`
+        promises[i] = queryPromise(sql);
+      }
+      else {
+        let ratio = 1/(result.length-1.0);
+        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, ${ratio})`
+        promises[i] = queryPromise(sql);
+      }
+    }
+    return Promise.all(promises);
+  }).then(none => {
+    res.send(`History is added !`);
+  }.catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  });
 })
 // join wallet
 app.get('/joinWallet', (req, res) => {
