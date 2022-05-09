@@ -189,7 +189,7 @@ app.get('/insertHistory', (req, res) => {
     payer: null
   }
   let sql = `INSERT INTO history (time, item, money, tag) 
-            VALUES (${param.time}, ${param.item}, ${param.money}, ${param.tag})`
+            VALUES ("${param.time}", ${param.item}, ${param.money}, ${param.tag})`
   let prom = queryPromise(sql).then(none => {
     sql = `SELECT MAX(hid) AS hid FROM history`
     return queryPromise(sql);
