@@ -213,7 +213,7 @@ app.get('/insertHistory', (req, res) => {
     }
     return Promise.all(promises);
   }).then(none => {
-    res.send(`History is added !`);
+    res.send("History is added !");
   }).catch(err => {
     console.log(err);
     res.status(500).send(err);
