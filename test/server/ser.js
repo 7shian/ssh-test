@@ -71,7 +71,7 @@ app.get('/loginUser', (req, res) => {
   let email = req.query.mail
   let name = req.query.username
   let pswd = req.query.password
-  let sql  = `SELECT * FROM user WHERE mail = ${email}`
+  let sql  = `SELECT * FROM user WHERE mail = "${email}"`
   connection.query(sql, (err, results) => {
     if(err) res.send("No this user")
     else if(results == []) res.send("No User mail")
