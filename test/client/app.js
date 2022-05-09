@@ -3,7 +3,7 @@ $(document).ready(function() {
   $('#signup-user-form button[type="submit"]').click((event) => {
     event.preventDefault()
     $.get('./signupUser', {
-      mail: $('#signup-user-form input[name=mail]').val(),
+      username: $('#signup-user-form input[name=username]').val(),
       password: $('#signup-user-form input[name=password]').val(),
     }, (data) => {
       $('#signup-user-output').html(data)
@@ -13,7 +13,7 @@ $(document).ready(function() {
   $('#login-user-form button[type="submit"]').click((event) => {
     event.preventDefault()
     $.get('./loginUser', {
-      username: $('#login-user-form input[name=username]').val(),
+      mail: $('#login-user-form input[name=mail]').val(),
       password: $('#login-user-form input[name=password]').val(),
     }, (data) => {
       $('#login-user-output').html(data)
