@@ -178,13 +178,13 @@ app.get('/switchWallet', (req, res) => {
   })
 })
 // insert history
-app.get('/insertHistory', (req, res) => {
+app.post('/insertHistory', (req, res) => {
   let param = {
     uid: req.session.uid,
-    time: req.query.time,
-    item: req.query.item,
-    money: req.query.money,
-    tag: req.query.tag,
+    time: req.body.time,
+    item: req.body.item,
+    money: req.body.money,
+    tag: req.body.tag,
     getter: req.session.uid,
     payer: null
   }
@@ -203,15 +203,15 @@ app.get('/insertHistory', (req, res) => {
     for(let i=0; i<result.length; i++) {//parallel
       if(param.uid == result[i].uid) {
         sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, -1)`
-        promises[i] = queryPromise(sql);
+        param.promises[i] = queryPromise(sql);
       }
       else {
         let ratio = 1/(result.length-1.0);
         sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, ${ratio})`
-        promises[i] = queryPromise(sql);
+        param.promises[i] = queryPromise(sql);
       }
     }
-    return Promise.all(promises);
+    return Promise.all(param.promises);
   }).then(none => {
     res.send("History is added !");
   }).catch(err => {
