@@ -68,12 +68,13 @@ app.get('/signupUser', (req, res) => {
 })
 // user login
 app.get('/loginUser', (req, res) => {
+  let email = req.query.mail
   let name = req.query.username
   let pswd = req.query.password
-  let sql  = `SELECT * FROM user WHERE username = ${name}`
+  let sql  = `SELECT * FROM user WHERE mail = ${email}`
   connection.query(sql, (err, results) => {
     if(err) res.send("No this user")
-    else if(results == []) res.send("No User Name")
+    else if(results == []) res.send("No User mail")
     else if(results[0].password == pswd) {
       session = req.session
       session.username = name
@@ -161,6 +162,20 @@ app.get('/deleteWallet', (req, res) => {
   sql = `DELETE FROM wallet WHERE (wname) LIKE ${wname}`
   connection.query(sql, err => { if(err) throw err })
   // res.send(`Wallet is deleted!`)
+})
+//switch wallet
+app.get('/switchWallet', (req, res) => {
+  let param = {
+    uid: req.session.uid,
+    wid: req.query.wallet
+  }
+  let sql = `UPDATE user SET focusWallet=${param.wid} WHERE uid=${param.uid}`
+  queryPromise(sql).then(none => {
+    res.send("Success");
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
 })
 // insert history
 app.get('/insertHistory', (req, res) => {
@@ -321,7 +336,7 @@ app.post('/splitMoney2', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT uid, nickname FROM userWallet WHERE wid=${param.wid}`
+    sql = `SELECT uid, nickname FROM userWallet WHERE wid=${param.wid} ORDER BY uid`
     return queryPromise(sql);
   }).then(result => {
     ret.nickname = result;
