@@ -163,9 +163,9 @@ app.post('/insertHistory', (req, res) => {
     getter: req.session.uid,
     payer: null
   }
-  let sql = `INSERT INTO history (time, item, money, tag) 
-            VALUES ("${param.time}", "${param.item}", ${param.money}, "${param.tag}")`
-  let prom = queryPromise(sql).then(none => {
+  let sql = `INSERT INTO history (hid, time, item, money, tag) 
+    VALUES ((SELECT focusWallet FROM user WHERE uid=${param.uid}), "${param.time}", "${param.item}", ${param.money}, "${param.tag}")`
+  queryPromise(sql).then(none => {
     sql = `SELECT MAX(hid) AS hid FROM history`
     return queryPromise(sql);
   }).then(result => {
@@ -238,28 +238,18 @@ app.get('/getMember', (req, res) => {
 })
 // set nickname
 app.get('/setNickname', (req, res) => {
-  let uid, wid
+  let uid = req.session.uid, wid
   let wname = req.query.wname
   let nick  = req.query.nickname
   let uname = req.session.username
-  let sql = `SELECT uid FROM user WHERE username = ${uname}`
+  let sql = `SELECT focusWallet FROM user WHERE uid=${uid}`
   connection.query(sql, (err, results) => {
     if(err) throw err
-    uid = results[0].uid
-    sql = `SELECT wid FROM wallet WHERE wname = ${wname}`
-    connection.query(sql, (err, results) => {
+    wid = results[0].focusWallet
+    sql = `UPDATE userWallet SET nickname='${nick}' WHERE uid=${uid} AND wid=${wid}`
+    connection.query(sql, err => {
       if(err) throw err
-      wid = results[0].wid
-      sql = `UPDATE 
-               userWallet SET nickname = '${nick}' 
-             WHERE 
-               uid = ${uid} AND
-               wid = ${wid}
-            `
-      connection.query(sql, err => {
-        if(err) throw err
-        res.send("Nickname is updated!")
-      })
+      res.send("Nickname is updated!")
     })
   })
 })
@@ -304,7 +294,7 @@ app.post('/splitMoney1', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time="${param.date}")`
+    sql = `SELECT item, money FROM history WHERE (wid=${param.wid} AND time="${param.date}")`
     return queryPromise(sql);
   }).then(result => {
     let ret = {
@@ -334,7 +324,7 @@ app.post('/splitMoney2', (req, res) => {
     return queryPromise(sql);
   }).then(result => {
     ret.nickname = result;
-    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT sub.hid, sub.money from ((SELECT history.hid, history.time, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub) WHERE (sub.wid=${param.wid} AND sub.time=${param.date})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid ORDER BY userHistory.uid`
+    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT hid, money from history WHERE (wid=${param.wid} AND time=${param.date})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid ORDER BY userHistory.uid`
     return queryPromise(sql);
   }).then(result => {
     ret.money = result;
