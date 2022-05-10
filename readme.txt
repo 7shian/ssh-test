@@ -1,0 +1,46 @@
+// --------- user signup -----------
+//
+// app.get('./signupUser')
+//
+// input data : (mail, password)
+// setup info : (username: default->mail
+//               mail:     mail
+//               password: password)
+// return : Success / Fail
+// ---------------------------------
+// to-do : mail should be checked if it's unique
+//         should tell the front-end if it's success
+
+// --------- user login ------------
+//
+// app.get('./loginUser')
+// 
+// input data : (mail/username, password)
+// judge : (mail == mail OR username == username) 
+            AND password == password
+// return : Success / Fail
+// ---------------------------------
+// to-do : 
+
+// --------- wallet create ---------
+//
+// app.get('./insertWallet')
+// 
+// input data : (walletname)
+// setup info : (walletname: walletname
+//               idcode: auto-generate)
+// return : Success / Fail
+// ---------------------------------
+// to-do : is the wallet name unique?
+
+// --------- wallet create ---------
+//
+// app.get('./insertWallet')
+// 
+// input data : (walletname)
+// setup info : (walletname: walletname
+//               idcode: auto-generate)
+// return : Success / Fail
+// ---------------------------------
+// to-do : is the wallet unique?
+

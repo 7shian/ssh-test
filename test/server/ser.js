@@ -54,9 +54,9 @@ const queryPromise = sql => {
     })
   })
 }
-// insert user 
+// user signup
 app.get('/signupUser', (req, res) => {
-  let name = req.query.username
+  let name = req.query.mail
   let email = req.query.mail
   let pswd = req.query.password
   let post = {username: name, password: pswd, mail: email}
@@ -103,33 +103,8 @@ app.get('/showAll-user', (req, res) => {
     res.send(str)
   })
 })
-// insert user wallet
-app.get('/insertWallet', (req, res) => {
-  
-  // console.log(req.session.username)
-  let wname = req.query.wallet
-  //wid needed to generate unique code
-  //let hashed = crypto.createHash("sha256").update(wname + "//" + wid, "utf8").digest("hex").substring(1,8);
-  let random = 123
-  let post = {wname: wname, code: random}
-  let sql  = 'INSERT INTO wallet SET ?'
-  connection.query(sql, post, err => {
-    if(err) throw err
-    
-  })
-  sql  = `INSERT INTO 
-            userWallet (uid, wid) 
-          VALUES (
-            (SELECT uid FROM user WHERE username = ${req.session.username}),
-            (SELECT wid FROM wallet WHERE wname = ${wname})
-          )`
-    connection.query(sql, err => {
-      if(err) throw err
-      res.send(`Wallet is added to user ${req.session.username}`)
-    })
-})
 // insert user wallet with code added and promise async
-app.get('/insertWallet2', (req, res) => {
+app.get('/insertWallet', (req, res) => {
   let param = {
     uid: req.session.uid,
     wname: req.query.wallet
