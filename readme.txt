@@ -33,14 +33,16 @@
 // ---------------------------------
 // to-do : is the wallet name unique?
 
-// --------- wallet create ---------
+// --------- wallet delete ---------
 //
-// app.get('./insertWallet')
+// app.get('./deleteWallet')
 // 
 // input data : (walletname)
-// setup info : (walletname: walletname
-//               idcode: auto-generate)
+// function   : delete the userWallet / userHistory
 // return : Success / Fail
 // ---------------------------------
-// to-do : is the wallet unique?
+// to-do : front-end wallet delete?
+//         delete wallet only if you clean the receipt
+
+
 
