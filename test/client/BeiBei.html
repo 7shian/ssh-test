@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mainpage</title>
+    <link rel="stylesheet" href="./mainpage_style.css">
+    <link href="BeiBei.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+	<div id="__fullscreen">
+	  <ul class="tab-title">
+	    <li><a href="#__Page7__fullscreen">home_page</a></li>
+		<li><a href="#__Page6__fullscreen">tab6</a></li>
+		<li><a href="#__Mainpage__overview__container">__Mainpage__overview__container</a></li>
+		<li><a href="#__Page18__fullscreen">tab18</a></li>
+		<li><a href="#__Page16__fullscreen">edit_pocketorname</a></li>
+		<li><a href="#__Mainpage__homepage__container">__Mainpage__homepage__container</a></li>
+		<li><a href="#__Mainpage__manualTrack__container">__Mainpage__manualTrack__container</a></li>
+		
+	  </ul>
+	  <div id="__Page__menu__container">
+		  <img class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(0)">
+		  <div id="__Page__menu__bar">
+		    <img class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(1)">
+		    <div id="__Page__menu__head_container">
+			  <div id="__Page__menu__head" onclick="change_page(4)"></div>
+			    <div id="__Page__menuword__head">
+			      <p class="__Page__menu__head_word">錢包名</p>
+				  <img class="__Page__menualter" src="./icon/team2.png" alt="更改">
+			    </div>
+			</div>
+			<div id="__Page__menu__home">
+			  <p class="__Page__menu__word" onclick="change_page(0)">首頁</p>
+			</div>
+			<div id="__Page__menu__check">
+			  <p class="__Page__menu__word" onclick="change_page(1)">分帳</p>
+			</div>
+			<div id="__Page__menu__result_check">
+			  <p class="__Page__menu__word">結算紀錄</p>
+			</div>
+			<div id="__Page__menu__funny">
+			  <p class="__Page__menu__word">梗圖</p>
+			</div>
+			<div id="__Page__menu__pocket_check">
+			  <p class="__Page__menu__word">錢包總覽</p>
+			</div>
+			<div id="__Page__menu__about_us">
+			  <p class="__Page__menu__word">團隊介紹</p>
+			</div>
+		  </div>
+		</div>
+	  <div id="__Page7__fullscreen" class="tab-inner">
+	    <div id="__Page7__moneyimg__container">
+		  <img class="__Page7__moneyimg" src="./icon/team2.png" alt="錢包圖片">
+		</div>
+		<div id="__Page7__helloword__container">
+		  <p class="__Page7__helloword">打招呼話語</p>
+		</div>
+		<div id="__Page7__informword__container">
+		  <p class="__Page7__informword">通知訊息</p>
+		</div>
+		<div id="__Page7__inform__container">
+		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
+		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
+		</div>
+		<img id="__Page7__bottomimg" class="__Page7__bottomimg" src="./icon/team2.png" onclick="checkbill_openorclose()" alt="記帳">
+		<img id="__Page7__bottomimg2" class="__Page7__bottomimg" src="./icon/team2.png" alt="手動" onclick="change_page(6)">
+		<img id="__Page7__bottomimg3" class="__Page7__bottomimg" src="./icon/team2.png" alt="掃描" onclick="change_page(0)">
+	  </div>
+	  <div id="__Page6__fullscreen" class="tab-inner">
+		<!--b class="touch __Page6__bill_word" onclick="change_page(2)">Page22</b>
+		<b class="touch __Page6__bill_word" onclick="change_page(3)">Page33</b>
+		<b class="touch __Page6__bill_word" onclick="add_checkbox()">ADDING</b>
+		<b class="touch __Page6__bill_word" onclick="delete_checkbox()">delete</b-->
+		
+		<div id="__Page6__text_bill__container">
+		  <!--div class="__Page6__word__bar"-->
+		    <p class="__Page6__bill_word">待分帳項目</p>
+		  <!--/div-->
+		</div>
+		<div id="__Page6__bill__container">
+			
+		  <label id="delete_id" class="__Page6__bill_check"><input type="checkbox"  id="__Page6__bill_content">4/27 Costco 214000<br></label>
+			
+		  <label id="delete_id" class="__Page6__bill_check"><input type="checkbox" id="__Page6__bill_content">4/28 成大學生電費 2140<br></label>
+			
+		</div>
+		<div id="__Page6__result__container">
+		  <div id="__Page6__word__containerid" class="__Page6__word__bar" onclick="change_page(3);yes_checkbill(0);">
+		    <p class="__Page6__bill_word">結算</p>
+		  </div>
+		</div>
+		  
+	  </div>
+	  <div id="__Mainpage__overview__container" class="tab-inner">
+        <div id="__overview__header__bar"><span id="overview_title">我的錢包</span></div>
+        <div id="__overview__flexbox__bar"><a class="flex-item" target="_top" onclick="change_page(0)">台南住宿</a><a class="flex-item" href="#">林家</a></div>
+        <div id="__overview__footer__bar"><a class="overview-flex" href="#" target="_top"><span>加入錢包</span></a>
+          <span class="between"></span>
+          <a class="overview-flex" href="#" target="_top"><span>創建錢包</span></a>
+        </div>
+	  </div>
+	  <div id="__Page18__fullscreen" class="tab-inner">
+		<!--b class="touch __Page6__bill_word" onclick="change_page(1)">Page11</b>
+		<b class="touch __Page6__bill_word" onclick="change_page(2)">Page22</b-->
+		
+		<div id="__Page18__text_bill__container">
+		  <p id="__Page18__bill_word" class="__Page18__bill_word">分帳結果</p>
+		</div>
+		<div id="__Page18__bill__container">
+		  <p id="__Page18__bill_word" class="__Page18__bill_word">4月電費$1260元</p>
+		</div>
+		<div id="__Page18__personcheck__container">
+		  <label id="delete_id" class="__Page18__bill_check"><input type="checkbox"  id="__Page18__bill_content">小文 19<br></label>
+		  <label id="delete_id" class="__Page18__bill_check"><input type="checkbox"  id="__Page18__bill_content">髒 5978<br></label>
+		  <label id="delete_id" class="__Page18__bill_check"><input type="checkbox"  id="__Page18__bill_content" >松明 587<br></label>
+		</div>
+		<div id="__Page18__result__container">
+		  <div id="__Page6__word__containerid" class="__Page18__word__bar" onclick="change_page(1)">
+		    <p class="__Page18__bill_word">取消分帳</p>
+		  </div>
+		  <div id="__Page18__word__containerid2" class="__Page18__word__bar" onclick="yes_checkbill(1)">
+		    <p class="__Page18__bill_word">確認分帳</p>
+		  </div>
+		</div>
+		<div id="__Page18__result2__container">
+		  <div id="__Page6__word__containerid" class="__Page18__word__bar"  onclick="yes_checkbill(2)">
+		    <p class="__Page18__bill_word">催帳</p>
+		  </div>
+		  <div id="__Page18__word__containerid2" class="__Page18__word__bar">
+		    <p class="__Page18__bill_word">繳清</p>
+		  </div>
+		</div>
+		<div id="__Page18__result3__container">
+		  <div id="__Page6__word__containerid" class="__Page18__word__bar"  onclick="change_page(1)">
+		    <p class="__Page18__bill_word">取消發送</p>
+		  </div>
+		  <div id="__Page18__word__containerid2" class="__Page18__word__bar">
+		    <p class="__Page18__bill_word">確認發送</p>
+		  </div>
+		</div>
+		<div id="__Page18__result3-2__container">
+		  <img class="__Page7__moneyimg" src="./icon/team2.png" alt="梗圖">
+		</div>
+		
+	  </div>
+	  <div id="__Page16__fullscreen" class="tab-inner">
+		<div id="__Page16__pocket__container">
+		  <p class="__Page16__pocketname">錢包名</p>
+		  <img class="__Page16__pocketimg" src="./icon/team2.png" alt="更改">
+		</div>
+		<div id="__Page16__invite__container">
+		  <div id="__Page16__invite__bar" onclick="add_person()">
+		    <div id="__Page16__invitelink__bar" onclick="add_person()">
+		      <p class="__Page16__inviteid">邀請連結</p>
+			  <img class="__Page16__pocketimg" src="./icon/team2.png" alt="連結">
+			 </DIV>
+		    <p class="__Page16__inviteid">#16555a2ssq</p>
+		  </div>
+		</div>
+		<div id="__Page16__team__container">
+		  <p class="__Page16__teamname">成員</p>
+		</div>
+		<div id="__Page16__teammate__container">
+			<label id="delete_id" class="__Page16__teammatename">
+			  <img class="__Page16__userimg" src="./icon/team2.png" alt="大頭照">
+			  xxxx
+			</label>
+			<label id="delete_id" class="__Page16__teammatename">
+			  <img class="__Page16__userimg" src="./icon/team2.png" alt="大頭照">
+			  bb
+			</label>
+		</div>
+		
+		
+		
+	  </div>
+	
+      <div id="__Mainpage__homepage__container" class="tab-inner">
+        <div id="homepage__header__bar"><span class="homepage_title">錢包圖片</span></div>
+        <div id="homepage__notif__bar"><span>Notification</span></div>
+        <div id="homepage__footer__bar">
+          <button class="fab-btn lively" type="button" id="fab-add">+</button>
+        </div>
+      </div>
+	  
+	  <div id="__Mainpage__manualTrack__container" class="tab-inner">
+        <div id="manualTrack__header__bar"><a class="cancel-icon" href="history.back()" target="_top"></a><span class="manualTrack_title">新增支出</span></div>
+        <div id="manualTrack__input__bar"><span>帳目名稱</span>
+          <lable>$
+            <input inputmode="numeric" pattern="[0-9]*" placeholder="0" type="text" name="expense">
+          </lable>
+          <hr class="break_style">
+        </div>
+        <div id="manualTrack__infos__bar"><span>備註</span>
+          <hr class="break_style"><span>分攤人</span>
+          <div id="split-bill_flexbox">
+            <div class="user-icons lively"><i class="fas fa-user"></i></div>
+          </div>
+        </div>
+        <div id="manualTrack__keypad__bar">
+          <hr><span id="current_date"></span>
+          <hr>
+        </div>
+        <div id="manualTrack__footer__bar"><a class="menu-flex lively" href="#__Mainpage__homepage__container" target="_top" onclick="change_page(0)"><span>確認記帳</span></a></div>
+      </div>
+	
+	
+	</div>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../dist/js/mainpage.js"></script>
+	<script src="./BeiBei.js"></script>
+  </body>
+</html>

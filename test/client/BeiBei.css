@@ -1,0 +1,440 @@
+body {
+	margin: 0;
+	height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#__fullscreen {
+	width: 100vw;
+    text-align: center;
+}
+
+#__page__blank__fullscreen{
+	height:100vh;
+	width:100vw;
+	z-index:2;
+}
+#__Page7__fullscreen,#__Page6__fullscreen,#__Mainpage__manualTrack__container,#__Page18__fullscreen,#__Page16__fullscreen,#__Mainpage__homepage__container{
+	display:none;
+}
+.tab-title{display:none;}
+
+#__Page__menu__container {
+	height: 8vh;
+	display: flex;
+	flex-direction: column;
+	position:fixed;
+	z-index:2;
+}
+
+.__Page__menu{
+	width: 6vw;
+    height: 6vw;
+	display: flex;
+	padding-top: 5vh;
+	padding-left: 5vw;
+	position: fixed;
+}
+
+#__Page__menu__bar{
+	width: 70vw;
+	height: 100vh;
+	position: fixed;
+	background-color: #FFF333;
+	display: flex;
+	flex-direction: column;
+	transition:0.5s;
+	left:-71vw;
+	border-right: 3px solid #000000;
+}
+
+#__Page__menu__head_container{
+	width: 70vw;
+	height: 25vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#__Page__menuword__head{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.__Page__menualter{
+	margin-top: calc(15vh);
+}
+
+#__Page__menu__head{
+	height: 10vh;
+	width: 10vh;
+    background-color: #C4C4C4;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 500px;
+	border: 3px solid #000000;
+	position: fixed;
+}
+
+#__Page__menu__home,#__Page__menu__check,#__Page__menu__result_check,#__Page__menu__funny,#__Page__menu__pocket_check,#__Page__menu__about_us{
+	width: 70vw;
+	height: 10vh;
+}
+.__Page__menu__head_word{
+	font: 5vw Helvetica bold Condensed;
+    margin-top: calc(15vh);
+    margin-bottom: 0;
+}
+.__Page__menu__word{
+	left: calc(70vw/2 - 38.4vw/2);
+    font: 7vw Helvetica bold Condensed;
+    position: relative;
+    margin: 0;
+    height: 6.6vh;
+    width: 38.4vw;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #000000;
+    box-shadow: 1vw 1vw 0px #000000;
+    border-radius: 10px;
+}
+
+
+
+#__Page6__text_bill__container,#__Page12__text_bill__container,#__Page18__text_bill__container,#__Page7__moneyimg__container{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	background: #FFF333;
+	width: 100vw;
+	height: 29vh;
+}
+.__Page6__word__bar{
+	height: 6.6vh;
+	width: 38.4vw;
+    background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+    border: 3px solid #000000;
+	box-shadow: 1vw 1vw 0px #000000;
+    border-radius: 10px;
+}
+
+#__Page18__word__containerid{background-color: #ADADAD;}
+
+.__Page6__bill_word,.__Page12__bill_word,.__Page18__bill_word{
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 7.2vw;
+	text-align: center;
+	color: #000000;
+}
+
+.__Page6__bill_check{
+	font: 6vw Helvetica bold Condensed;
+	color: #000000;
+	position: relative;
+    left: 10vw;
+}
+
+#__Page6__bill_content,#__Page18__bill_content {
+	width: 7vw;
+	height: 7vw;
+	display: inline;
+	position: relative;
+    top: 1vw;
+	margin-right: 5vw;
+	margin-top: 2vh;
+}
+
+#__Page6__bill__container {
+	width: 95vw;
+	height: 43vh;
+	margin-top: 7vh;
+	box-sizing: border-box;
+	overflow: auto;
+	position:fixed;
+	text-align: left;
+}
+
+#__Page6__result__container {
+	width: 100vw;
+	height: 27vh;
+	padding-top: 60vh;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#__Page7__moneyimg__container {
+	background-color: #6BDCFF;
+}
+
+.__Page7__moneyimg{
+	background-size: contain;
+    height: 15vh;
+}
+
+#__Page7__helloword__container,#__Page7__informword__container {
+	width: 100vw;
+	height: 10vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#__Page7__informword__container{
+	height: 5vh;
+}
+
+.__Page7__helloword,.__Page7__informword{
+	font: 5vw Helvetica bold Condensed;
+}
+
+#__Page7__inform__container {
+	width: 90vw;
+	height: 25vh;
+	display: flex;
+	margin: 5vw;
+	border-radius: 4vh;
+	background-color: #ADADAD;
+	overflow:auto;
+	position:fixed;
+	flex-direction: column;
+	text-align: left;
+}
+.__Page7__inform{
+	font: 5vw Helvetica bold Condensed;
+	width: 78vw;
+	padding-top: 1vh;
+	position: relative;
+    left: 6vw;
+}
+
+#__Page7__bottom__container {
+    height: 20vw;
+    width: 20vw;
+    background-color: #ADADAD;
+    border-radius: 500px;
+    position: fixed;
+	bottom: 5vh;
+    left: 40vw;
+}
+
+.__Page7__bottomimg {
+	width: 8vh;
+    height: 8vh;
+    border: 0.7vw solid #ffbc51;
+    background-color: #ADADAD;
+    border-radius: 500px;
+    position: fixed;
+	bottom: 5vh;
+    left: calc((100vw - 8vh)/2);
+	transition: 0.5s;
+}
+#__Page7__bottomimg2,#__Page7__bottomimg3{
+	z-index:-1;
+}
+
+#__Page12__personcheck__container{
+	width: 100vw;
+	height: 30vh;
+	box-sizing: border-box;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: start;
+	position:fixed;
+}
+
+.__Page12__bill_check{
+	font: 7.2vw Helvetica bold Condensed;
+	color: #000000;
+	position: relative;
+}
+
+#__Page12__result__container,#__Page18__result__container,#__Page18__result2__container,#__Page18__result3__container{
+	width: 100vw;
+	height: 27vh;
+	padding-top: 43vh;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#__Page18__result3-2__container{
+	width: 100vw;
+	height: 27vh;
+	padding-top: 10vh;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#__Page18__result__container,#__Page18__result2__container,#__Page18__result3__container,#__Page18__result3-2__container{
+	position:fixed;
+}
+
+#__Page18__result2__container,#__Page18__result3__container,#__Page18__result3-2__container{
+	display:none;
+}
+
+#__Page18__bill__container {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 15vh;
+}
+
+#__Page18__personcheck__container {
+	width: 100vw;
+	height: 35vh;
+	overflow: auto;
+	position:fixed;
+	z-index:1;
+	text-align: left;
+}
+
+.__Page18__bill_check{
+	font: 7.2vw Helvetica bold Condensed;
+	color: #000000;
+	position: relative;
+    left: 30vw;
+}
+
+.__Page18__word__bar{
+    margin-right: 2vw;
+    margin-left: 2vw;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6.6vh;
+    width: 38.4vw;
+    background-color: #FFFFFF;
+    border: 3px solid #000000;
+	box-shadow: 1vw 1vw 0px #000000;
+    border-radius: 10px;
+}
+
+#__Page16__pocket__container {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #FFF333;
+    width: 100vw;
+    height: 29vh;
+}
+
+
+#__Page16__invite__bar{
+	background: #FFFFFF;
+	border: 0.5vw solid #000000;
+	box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	width: 51vw;
+	height: 11vh;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	flex-direction: column;
+}
+#__Page16__invitelink__bar{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	flex-direction: row;
+}
+
+
+.__Page16__pocketname,.__Page16__username,.__Page16__teamname,.__Page16__inviteid{
+	font: 5vw Helvetica bold Condensed;
+}
+
+.__Page16__teamname,.__Page16__inviteid{
+	margin:0;
+}
+
+.__Page16__teammatename{
+	font: 5vw Helvetica bold Condensed;
+    position: relative;
+	margin-right: 5vw;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	flex-direction: column;
+}
+
+#__Page16__user__bar {
+	width: 80vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+}
+
+#__Page16__user__container {
+	width: 100vw;
+	height: 25vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.__Page16__pocketimg {
+    width: 6vw;
+    height: 6vw;
+    background-color: #6BDCFF;
+    border-radius: 500px;
+}
+
+.__Page16__userimg {
+    width: 15vw;
+    height: 15vw;
+    background-color: #6BDCFF;
+    border-radius: 500px;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+}
+
+#__Page16__team__container {
+	width: 100vw;
+	height: 5vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 5vh;
+}
+
+#__Page16__teammate__container {
+	width: 84vw;
+	height: 40vw;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+    overflow: auto;
+    position: fixed;
+	margin: 0 8vw;
+}
+
+#__Page16__invite__container {
+	width: 100vw;
+	height: 20vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
