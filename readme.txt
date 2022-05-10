@@ -54,6 +54,16 @@
 // ---------------------------------
 // to-do : 
 
+// --------- wallet join -----------
+//
+// app.get('./joinWallet')
+// 
+// input data  : wallet_idcode
+// update info : focusWallet at user
+// return : Success / Fail
+// ---------------------------------
+// to-do : 
+
 // -------- history create ---------
 //
 // app.get('./insertHistory')
@@ -62,8 +72,12 @@
 //                item : item name,
 //                money: total amount of this consumption,
 //                tag  : default->item name)
-// function : 
+// function : history setup, 
+//            userWallet setup, 
+//            userHistory setup
 // return : Success / Fail
 // ---------------------------------
-// to-do : 
+// to-do : setup history.wid
+
+
 
