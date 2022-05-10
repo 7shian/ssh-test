@@ -1,0 +1,160 @@
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+::placeholder {
+    color: #000;
+    opacity: 1.0;
+} 	
+
+#__Mainpage__overview__container {
+    height: 100vh;
+}
+
+#__overview__header__bar {
+    padding: 13vh 0 1.5vh;
+}
+
+#__overview__flexbox__bar {
+    display: flex;
+    height: 54vh;
+    justify-content: center;
+    margin: 0 auto;
+    overflow-y: auto;
+    flex-wrap: wrap;
+}
+
+#__overview__footer__bar {
+    display: flex;
+    justify-content: center;
+    margin: 13.5vh 0 6vh;
+}
+
+#__Mainpage__homepage__container {
+    height: 100vh;
+}
+
+#homepage__header__bar {
+    background-color: #6bdcff;
+    box-sizing: border-box;
+    height: 29vh;
+    padding-top: 20vh;
+}
+
+#homepage__notif__bar {
+    background-color: #e5e5e5;
+    border-radius: 10px;
+    margin: 10vh 6.5vw;
+    height: 39vh;
+}
+
+#__Mainpage__manualTrack__container {
+    border: 3px solid #000000;
+    border-radius: 15px 15px 0px 0px;
+    margin-top: 6.5vh;
+    height: 93.5vh
+}
+
+#manualTrack__header__bar {
+    background-color: #fff333;
+    height: 6.5vh;
+}
+
+/* Detail of all elements */
+.lively {
+    background-color: #fff333;
+    border: 2.5px solid #000;
+    box-shadow: 3px 3px 0px #000;
+    border-radius: 3px;
+}
+
+.gray {
+    background-color: #e5e5e5;
+}
+
+.tab_title {
+    margin: 0 auto;
+}
+
+#overview_title {
+    font-size: 24px;
+}
+
+#__overview__flexbox__bar::-webkit-scrollbar { 
+    display: none;
+}
+
+.flex-item {
+    background-color: #c4c4c4;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-size: 24px;
+    margin: 77px 7px 0;
+    padding-top: 24px;
+    justify-content: center;
+    height: 152px;
+    width: 152px;
+}
+
+.between {
+    padding: 0 3vw;
+}
+
+.overview-flex {
+    background-color: #c4c4c4;
+    display: inline-flex;
+    font-size: large;
+    height: 8vh;
+    width: 32vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.homepage_title {
+    font-size: 32px;
+    line-height: 39px;
+}
+
+.fab-menu {
+    list-style: none;
+}
+
+.fab-menu li {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.fab-btn {
+    height: 56px;
+    width: 56px;
+    font-size: xxx-large;
+    padding: 0;
+    transition: 0.3s;
+}
+
+/* .fab-btn:hover {
+    transform: rotate(45deg);
+} */
+
+.user-icons {
+    border-radius: 50%;
+    display: inline-block;
+    height: 8vh;
+    width: 8vh;
+}
+
+.fa-user {
+    font-size: xx-large;
+    margin: 4vh 0;
+}
+
+.menu-flex {
+    display: flex;
+    font-size: large;
+    height: 6.5vh;
+    width: 38.5vw;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6vh;
+}

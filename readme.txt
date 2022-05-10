@@ -29,6 +29,7 @@
 // input data : (walletname)
 // setup info : (walletname: walletname
 //               idcode: auto-generate)
+// function : userWallet setup
 // return : Success / Fail
 // ---------------------------------
 // to-do : is the wallet name unique?
@@ -73,7 +74,6 @@
 //                money: total amount of this consumption,
 //                tag  : default->item name)
 // function : history setup, 
-//            userWallet setup, 
 //            userHistory setup
 // return : Success / Fail
 // ---------------------------------
