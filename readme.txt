@@ -59,8 +59,8 @@
 //
 // app.get('./joinWallet')
 // 
-// input data  : wallet_idcode
-// update info : focusWallet at user
+// input data : wallet_idcode
+// setup info : userWallet setup
 // return : Success / Fail
 // ---------------------------------
 // to-do : 
