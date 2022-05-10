@@ -44,5 +44,26 @@
 // to-do : front-end wallet delete?
 //         delete wallet only if you clean the receipt
 
+// --------- wallet switch ---------
+//
+// app.get('./switchWallet')
+// 
+// input data  : walletname
+// update info : focusWallet at user
+// return : Success / Fail
+// ---------------------------------
+// to-do : 
 
+// -------- history create ---------
+//
+// app.get('./insertHistory')
+// 
+// input data  : (time : date, 
+//                item : item name,
+//                money: total amount of this consumption,
+//                tag  : default->item name)
+// function : 
+// return : Success / Fail
+// ---------------------------------
+// to-do : 
 
