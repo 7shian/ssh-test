@@ -13,7 +13,7 @@ $(document).ready(function() {
   $('#login-user-form button[type="submit"]').click((event) => {
     event.preventDefault()
     $.get('./loginUser', {
-      username: $('#login-user-form input[name=username]').val(),
+      mail: $('#login-user-form input[name=mail]').val(),
       password: $('#login-user-form input[name=password]').val(),
     }, (data) => {
       $('#login-user-output').html(data)
@@ -99,5 +99,29 @@ $(document).ready(function() {
     }, (data) => {
       $('#get-member-output').html(data)
     })
+  })
+  $('#add-history-form button[type="submit"]').click((event) => {
+    event.preventDefault()
+    window.fetch('/insertHistory', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8"
+      },
+      body: JSON.stringify({
+        time: document.querySelector("#add-history-form [name=time]").value,
+        item: document.querySelector("#add-history-form [name=item]").value,
+        money: document.querySelector("#add-history-form [name=money]").value,
+        tag: document.querySelector("#add-history-form [name=tag]").value
+      })
+    }).then(function(response) {
+      if (response.status >= 200 && response.status < 300)
+        return response;
+      else
+        throw new Error(response.status +":"+response.statusText);
+    }).then(response => response.text()).then(function(response) {
+      document.getElementById("add-history-output").innerHTML = response;
+    }).catch(function(err) {
+      console.log("Fetch Error :-S", err);
+    });
   })
 })

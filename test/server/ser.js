@@ -71,7 +71,7 @@ app.get('/loginUser', (req, res) => {
   let email = req.query.mail
   let name = req.query.username
   let pswd = req.query.password
-  let sql  = `SELECT * FROM user WHERE mail = ${email}`
+  let sql  = `SELECT * FROM user WHERE mail = "${email}"`
   connection.query(sql, (err, results) => {
     if(err) res.send("No this user")
     else if(results == []) res.send("No User mail")
@@ -138,7 +138,7 @@ app.get('/insertWallet2', (req, res) => {
   queryPromise(sql).then(result => {
     param.wid = result[0].wid + 1;
     param.code = crypto.createHash("sha256").update(param.wname + "//" + param.wid, "utf8").digest("hex").substring(1,8);
-    sql = `INSERT INTO wallet SET (wname, code) VALUES(${param.wname}, ${param.code})`
+    sql = `INSERT INTO wallet SET (wname, code) VALUES("${param.wname}", "${param.code}")`
     return queryPromise(sql);
   }).then(none => {
     sql = `INSERT INTO userWallet SET (uid, wid) VALUES(${param.uid}, ${param.wid})`
@@ -178,18 +178,18 @@ app.get('/switchWallet', (req, res) => {
   })
 })
 // insert history
-app.get('/insertHistory', (req, res) => {
+app.post('/insertHistory', (req, res) => {
   let param = {
-    uid = req.session.uid,
-    time = req.query.time,
-    item = req.query.item,
-    money = req.query.money,
-    tag = req.query.tag,
-    getter = req.session.uid,
-    payer = null
+    uid: req.session.uid,
+    time: req.body.time,
+    item: req.body.item,
+    money: req.body.money,
+    tag: req.body.tag,
+    getter: req.session.uid,
+    payer: null
   }
   let sql = `INSERT INTO history (time, item, money, tag) 
-            VALUES (${param.time}, ${param.item}, ${param.money}, ${param.tag})`
+            VALUES ("${param.time}", "${param.item}", ${param.money}, "${param.tag}")`
   let prom = queryPromise(sql).then(none => {
     sql = `SELECT MAX(hid) AS hid FROM history`
     return queryPromise(sql);
@@ -202,19 +202,19 @@ app.get('/insertHistory', (req, res) => {
     param.promises = new Array(result.length);
     for(let i=0; i<result.length; i++) {//parallel
       if(param.uid == result[i].uid) {
-        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, -1)`
-        promises[i] = queryPromise(sql);
+        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.hid}, ${result[i].uid}, -1)`
+        param.promises[i] = queryPromise(sql);
       }
       else {
         let ratio = 1/(result.length-1.0);
-        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.uid}, ${result[i].uid}, ${ratio})`
-        promises[i] = queryPromise(sql);
+        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.hid}, ${result[i].uid}, ${ratio})`
+        param.promises[i] = queryPromise(sql);
       }
     }
-    return Promise.all(promises);
+    return Promise.all(param.promises);
   }).then(none => {
-    res.send(`History is added !`);
-  }.catch(err => {
+    res.send("History is added !");
+  }).catch(err => {
     console.log(err);
     res.status(500).send(err);
   });
