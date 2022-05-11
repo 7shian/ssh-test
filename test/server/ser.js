@@ -379,6 +379,29 @@ app.post('/confirmSplit', (req, res) => {
     res.status(500).send(err);
   })
 })
+/***********notification************/
+function addNotification(wallet, message, tag) {
+  if(second === undefined) {
+    const sql = `INSERT INTO notification (wid, message) VALUES (${wallet}, ${message})`
+    return queryPromise(sql)
+  }
+  else {
+    const sql = `INSERT INTO notification (wid, message, tag) VALUES (${wallet}, ${message}, ${tag})`
+    return queryPromise(sql)
+  }
+}
+app.get('/getNotification', (req, res) => {
+  const param = {
+    uid: req.session.uid
+  }
+  let sql = `SELECT message FROM notification where wid=(SELECT focusWallet FROM user WHERE uid=${param.uid}) ORDER BY idx DESC`
+  queryPromise(sql).then(result => {
+    res.send(result.)
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+})
 /***********debug************/
 // showAll user
 app.get('/showAll-user', (req, res) => {
