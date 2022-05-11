@@ -150,8 +150,7 @@ app.get('/joinWallet', (req, res) => {
 // leave wallet
 app.get('/leaveWallet', (req, res) => {
   res.status(501).send("cannot leave wallet");
-  /*
-  */
+  /**/
 })
 //switch wallet into null
 app.get('/showWallet', (req, res) => {
@@ -337,8 +336,7 @@ app.get('/showAll-user', (req, res) => {
 // show wallet name
 app.get('/showWalletName', (req, res) => {
   let uid = req.session.uid
-  // let sql = `SELECT wname FROM wallet WHERE wid = (SELECT focusWallet FROM user WHERE uid = "${uid}")`
-  let sql = `SELECT wname FROM wallet WHERE wid = "85"`
+  let sql = `SELECT wname FROM wallet WHERE wid = (SELECT focusWallet FROM user WHERE uid = "${uid}")`
   connection.query(sql, (err, results) => {
     if(err) throw err
     console.log(results[0].wname)
