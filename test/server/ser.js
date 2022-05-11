@@ -150,8 +150,7 @@ app.get('/joinWallet', (req, res) => {
 // leave wallet
 app.get('/leaveWallet', (req, res) => {
   res.status(501).send("cannot leave wallet");
-  /*
-  */
+  /**/
 })
 // show wallet name
 app.get('/showWalletName', (req, res) => {
