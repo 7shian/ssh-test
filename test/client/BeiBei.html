@@ -22,33 +22,33 @@
 		
 	  </ul>
 	  <div id="__Page__menu__container">
-		  <img class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(0)">
+		  <img id="__Page__menu" class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(0)">
 		  <div id="__Page__menu__bar">
-		    <img class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(1)">
+		    <img id="__Page__menu" class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(1)">
 		    <div id="__Page__menu__head_container">
 			  <div id="__Page__menu__head" onclick="change_page(4)"></div>
 			    <div id="__Page__menuword__head">
-			      <p class="__Page__menu__head_word">錢包名</p>
+			      <p id="__Page__menu__head_word" class="__Page__menu__head_word">錢包名</p>
 				  <img class="__Page__menualter" src="./icon/team2.png" alt="更改">
 			    </div>
 			</div>
 			<div id="__Page__menu__home">
-			  <p class="__Page__menu__word" onclick="change_page(0)">首頁</p>
+			  <p id="__Page__menu__page1" class="__Page__menu__word" onclick="change_page(0)">首頁</p>
 			</div>
 			<div id="__Page__menu__check">
-			  <p class="__Page__menu__word" onclick="change_page(1)">分帳</p>
+			  <p id="__Page__menu__page2" class="__Page__menu__word" onclick="change_page(1)">分帳</p>
 			</div>
 			<div id="__Page__menu__result_check">
-			  <p class="__Page__menu__word">結算紀錄</p>
+			  <p id="__Page__menu__page3" class="__Page__menu__word">結算紀錄</p>
 			</div>
 			<div id="__Page__menu__funny">
-			  <p class="__Page__menu__word">梗圖</p>
+			  <p id="__Page__menu__page4" class="__Page__menu__word">梗圖</p>
 			</div>
 			<div id="__Page__menu__pocket_check" onclick="change_page(2)">
-			  <p class="__Page__menu__word">錢包總覽</p>
+			  <p id="__Page__menu__page5" class="__Page__menu__word">錢包總覽</p>
 			</div>
 			<div id="__Page__menu__about_us">
-			  <p class="__Page__menu__word">團隊介紹</p>
+			  <p id="__Page__menu__page6" class="__Page__menu__word">團隊介紹</p>
 			</div>
 		  </div>
 		</div>
@@ -77,14 +77,14 @@
 		
 		<div id="__Page6__text_bill__container">
 		  <!--div class="__Page6__word__bar"-->
-		    <p class="__Page6__bill_word" onclick="add_checkbox()">待分帳項目</p>
+		    <p id="__Page6__bill_word" class="__Page6__bill_word" onclick="add_checkbox2()">待分帳項目</p>
 		  <!--/div-->
 		</div>
 		<div id="__Page6__bill__container">
 			
-		  <label id="delete_id" class="__Page6__bill_check"><input type="checkbox"  id="__Page6__bill_content">4/27 Costco 214000<br></label>
-			
-		  <label id="delete_id" class="__Page6__bill_check"><input type="checkbox" id="__Page6__bill_content">4/28 成大學生電費 2140<br></label>
+		  <label id="delete_id" class="__Page6__bill_check" onclick="change_checkbox_color(this.firstChild.id)"><div id="__Page6__bill_content2 1" class="__Page6__bill_content2"></div>4/27 Costco 214000<br></label>
+		  <label id="delete_id" class="__Page6__bill_check" onclick="change_checkbox_color(this.firstChild.id)"><div id="__Page6__bill_content2 2" class="__Page6__bill_content2"></div>4/28 成大學生電費 2140<br></label>
+		  <label id="delete_id" class="__Page6__bill_check" onclick="change_checkbox_color(this.firstChild.id)"><div id="__Page6__bill_content2 3" class="__Page6__bill_content2"></div>4/28 成大學生電費 2140<br></label>
 			
 		</div>
 		<div id="__Page6__result__container">
@@ -113,9 +113,9 @@
 		  <p id="__Page18__bill_word" class="__Page18__bill_word">4月電費$1260元</p>
 		</div>
 		<div id="__Page18__personcheck__container">
-		  <label id="delete_id" class="__Page18__bill_check"><input type="checkbox"  id="__Page18__bill_content">小文 19<br></label>
-		  <label id="delete_id" class="__Page18__bill_check"><input type="checkbox"  id="__Page18__bill_content">髒 5978<br></label>
-		  <label id="delete_id" class="__Page18__bill_check"><input type="checkbox"  id="__Page18__bill_content" >松明 587<br></label>
+		  <label id="delete_id" class="__Page18__bill_check" onclick="change_checkbox_color(this.firstChild.id)"><div id="__Page18__bill_content2 1" class="__Page18__bill_content2"></div>小文 19<br></label>
+		  <label id="delete_id" class="__Page18__bill_check" onclick="change_checkbox_color(this.firstChild.id)"><div id="__Page18__bill_content2 2" class="__Page18__bill_content2"></div>髒 5978<br></label>
+		  <label id="delete_id" class="__Page18__bill_check" onclick="change_checkbox_color(this.firstChild.id)"><div id="__Page18__bill_content2 3" class="__Page18__bill_content2"></div>松明 587<br></label>
 		</div>
 		<div id="__Page18__result__container">
 		  <div id="__Page6__word__containerid" class="__Page18__word__bar" onclick="change_page(1)">
@@ -210,5 +210,6 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!--script type="text/javascript" src="./mainpage.js"></script-->
 	<script src="./BeiBei.js"></script>
+	<script src="./app_BeiBei.js"></script>
   </body>
 </html>

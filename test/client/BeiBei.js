@@ -17,6 +17,12 @@ $(function(){
 	
 
 function change_page(page_number){
+	var container = document.getElementById("__Page__menu__container");
+	if(page_number==0 |page_number==1 |page_number==3 |page_number==4){
+		container.style.display = "flex";
+	}else{
+		container.style.display = "none";
+	}
 	$($li. eq(page_number) .find('a'). attr ('href')).show().siblings ('.tab-inner').hide();
 	$li. eq(page_number) .addClass('active'). siblings ('.active').removeClass('active');
 	menu_openorclose(1);
@@ -33,6 +39,7 @@ function add_checkbox(){
 	checkboxs.id = "__Page6__bill_content";
 	checkboxs.onclick = function(){
 	 //you want event
+	/* checkboxs.color="black"*/
 	}
 	
 	// initialize
@@ -51,6 +58,51 @@ function add_checkbox(){
 
 }
 
+function add_checkbox2(){
+	var container = document.getElementById("__Page6__bill__container");
+	
+	var checkboxs = document.createElement("div");
+	checkboxs.id = "__Page6__bill_content2 " + price;
+	checkboxs.classList.add("__Page6__bill_content2");
+	
+
+	
+	// initialize
+	var label = document.createElement("label");
+	label.id = "delete_id";
+	label.classList.add("__Page6__bill_check");
+	label.onclick = function() {
+		change_checkbox_color(this.firstChild.id);
+	};
+
+	var br = document.createElement("br");
+	
+	container.appendChild(label);
+	label.appendChild(checkboxs);
+	label.appendChild(document.createTextNode("4/31 COCO"+price));
+	label.appendChild(br);
+	price++;
+}
+
+
+function change_checkbox_color(this_id){
+	/*console.log(document.getElementById(this_id).style.backgroundColor);*/
+	if (document.getElementById(this_id).style.backgroundColor == 'rgb(107, 220, 255)') {
+        document.getElementById(this_id).style.backgroundColor = '#FFFFFF';
+    }else{
+		document.getElementById(this_id).style.backgroundColor = '#6BDCFF';
+	}
+}
+
+function lock_checkbox(){
+	/*console.log(document.getElementById(this_id).style.backgroundColor);*/
+	if (document.getElementById(this_id).style.backgroundColor == 'rgb(107, 220, 255)') {
+        document.getElementById(this_id).style.backgroundColor = '#FFFFFF';
+    }else{
+		document.getElementById(this_id).style.backgroundColor = '#6BDCFF';
+	}
+}
+
 function add_person(){
 	var container = document.getElementById("__Page16__teammate__container");
 	var label = document.createElement("label");
@@ -62,6 +114,18 @@ function add_person(){
 	container.appendChild(label);
 	label.appendChild(img);
 	label.appendChild(document.createTextNode("BRYAN"));
+
+}	
+
+function add_notification(){
+	var container = document.getElementById("__Page7__inform__container");
+	var label = document.createElement("label");
+	label.id = "delete_id";
+	label.classList.add("__Page7__inform");
+	var br = document.createElement('br');
+	container.appendChild(label);
+	label.appendChild(document.createTextNode("5/13 啟賢新增了水費項目"));
+	label.appendChild(br);
 
 }	
 

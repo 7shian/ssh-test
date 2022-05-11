@@ -1,14 +1,14 @@
 $(document).ready(function() {
   // open side bar
-  $('#sidebar').click((event) => { // sidebar name is not determined
-    $.get('./showUsername')
+  $('#__Page__menu').click((event) => { 
+    $.get('./showWalletName', {}, (data) => {
+      $('#__Page__menu__head_word').text(data) 
+    })
   })
-  // create a new wallet
-  $('#new-wallet input[type="submit"]').click((event) => {
-    
+  // switch to split page
+  $('#__Page__menu__page2').click((event) => { 
+    $.get('./getHistory', {}, (data) => {
+    })
   })
-  // join a exist wallet
-  $('#join-wallet input[type="submit"]').click((event) => {
-    
-  })
+  
 })
