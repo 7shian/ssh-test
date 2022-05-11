@@ -295,7 +295,7 @@ app.get('/deleteUser/:password', (req, res) => {
 })
 
 // get all item & money from the given day
-app.post('/splitMoney1', (req, res) => {
+app.post('/getHistoryDay', (req, res) => {
   function promisifysql(f) {
     return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
   }
@@ -320,7 +320,7 @@ app.post('/splitMoney1', (req, res) => {
   })
 })
 // get total money of each member from the given day
-app.post('/splitMoney2', (req, res) => {
+app.post('/splitMoneyDay', (req, res) => {
   function promisifysql(f) {
     return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
   }
@@ -332,14 +332,10 @@ app.post('/splitMoney2', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT uid, nickname FROM userWallet WHERE wid=${param.wid} ORDER BY uid`
+    sql = `SELECT sub3.uid, sub3.nickname, sub.totalmoney FROM ((SELECT uid, nickname FROM userWallet WHERE wid=${param.wid}) AS sub3) INNER JOIN ((SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT hid, money from history WHERE (wid=${param.wid} AND time="${param.date}")) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid) AS sub) ON sub3.uid=sub.uid ORDER BY sub3.uid `
     return queryPromise(sql);
   }).then(result => {
-    ret.nickname = result;
-    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT hid, money from history WHERE (wid=${param.wid} AND time=${param.date})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid ORDER BY userHistory.uid`
-    return queryPromise(sql);
-  }).then(result => {
-    ret.money = result;
+    ret.data = result;
     res.send(JSON.stringify(ret));
   }).catch(err => {
     console.log(err);
