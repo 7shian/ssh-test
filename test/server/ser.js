@@ -337,9 +337,11 @@ app.get('/showAll-user', (req, res) => {
 // show wallet name
 app.get('/showWalletName', (req, res) => {
   let uid = req.session.uid
-  let sql = `SELECT wname FROM wallet WHERE wid = (SELECT focusWallet FROM user WHERE uid = "${uid}")`
+  // let sql = `SELECT wname FROM wallet WHERE wid = (SELECT focusWallet FROM user WHERE uid = "${uid}")`
+  let sql = `SELECT wname FROM wallet WHERE wid = "85"`
   connection.query(sql, (err, results) => {
     if(err) throw err
+    console.log(results[0].wname)
     res.send(results[0].wname)
   })
 })
