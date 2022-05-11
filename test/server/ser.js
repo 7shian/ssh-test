@@ -276,11 +276,29 @@ app.post('/insertHistory', (req, res) => {
     res.status(500).send(err);
   });
 })
+// get all item & money if unchecked
+app.post('/getHistoryUnchecked', (req, res) => {
+  let param = {
+    uid: req.session.uid
+  }
+  let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
+  queryPromise(sql).then(result => {
+    param.wid = result[0].focusWallet;
+    sql = `SELECT item, money FROM history WHERE (wid=${param.wid} AND checked=0) ORDER BY hid`
+    return queryPromise(sql);
+  }).then(result => {
+    let ret = {
+      date: param.date,
+      data: result
+    }
+    res.send(JSON.stringify(ret));
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+})
 // get all item & money from the given day
 app.post('/getHistoryDay', (req, res) => {
-  function promisifysql(f) {
-    return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
-  }
   let param = {
     uid: req.session.uid,
     date: req.body.date
@@ -301,11 +319,28 @@ app.post('/getHistoryDay', (req, res) => {
     res.status(500).send(err);
   })
 })
-// get total money of each member from the given day
-app.post('/splitMoneyDay', (req, res) => {
-  function promisifysql(f) {
-    return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
+// get total money of each member from the given hostory
+app.post('/splitMoney', (req, res) => {
+  let param = {
+    uid: req.session.uid,
+    hid: req.body.hid
   }
+  let ret = { date: param.date }
+  let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
+  queryPromise(sql).then(result => {
+    param.wid = result[0].focusWallet;
+    sql = `SELECT sub3.uid, sub3.nickname, sub.totalmoney FROM ((SELECT uid, nickname FROM userWallet WHERE wid=${param.wid}) AS sub3) INNER JOIN ((SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT hid, money from history WHERE wid=${param.wid} AND hid IN (${param.hid.toString()})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid) AS sub) ON sub3.uid=sub.uid ORDER BY sub3.uid`
+    return queryPromise(sql);
+  }).then(result => {
+    ret.data = result;
+    res.send(JSON.stringify(ret));
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+})
+// get total money of each member from the given date
+app.post('/splitMoneyDate', (req, res) => {
   let param = {
     uid: req.session.uid,
     date: req.body.date
@@ -319,6 +354,33 @@ app.post('/splitMoneyDay', (req, res) => {
   }).then(result => {
     ret.data = result;
     res.send(JSON.stringify(ret));
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+})
+app.post('/confirmSplit', (req, res) => {
+  const param = {
+    uid: req.session.uid,
+    hid: req.body.hid
+  }
+  let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
+  queryPromise(sql).then(result => {
+    param.wid = result[0].focusWallet;
+    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT hid, money from history WHERE wid=${param.wid} AND hid IN (${param.hid.toString()})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY uid ORDER BY uid`
+    return queryPromise(sql);
+  }).then(result => {
+    param.promises = new Array(result.length+1);
+    for(let i=1; i<result.length; i++) {
+      let uid = result[i].uid, totalmoney = result[i].totalmoney*-1
+      sql = `UPDATE userWallet SET balance=(SELECT balance FROM (SELECT * FROM userWallet) AS sub WHERE uid=${uid} AND WID=${param.wid} LIMIT 1)+${totalmoney} WHERE uid=${uid} AND wid=${param.wid}`
+      param.promises[i] = queryPromise(sql);
+    }
+    sql = `UPDATE history SET checked=1 WHERE hid IN (${param.hid.toString()})`
+    param.promises[result.length] = queryPromise(sql);
+    return Promise.all(param.promises);
+  }).then(none => {
+    res.send("Success")
   }).catch(err => {
     console.log(err);
     res.status(500).send(err);
