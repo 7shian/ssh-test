@@ -162,10 +162,10 @@ app.get('/showWallet', (req, res) => {
   })
 })
 //switch wallet
-app.get('/switchWallet', (req, res) => {
+app.post('/switchWallet', (req, res) => {
   let param = {
     uid: req.session.uid,
-    wid: req.query.wallet
+    wid: req.body.wallet
   }
   let sql = `UPDATE user SET focusWallet=${param.wid} WHERE uid=${param.uid}`
   queryPromise(sql).then(none => {
