@@ -147,11 +147,25 @@ app.get('/deleteWallet', (req, res) => {
   connection.query(sql, err => { if(err) throw err })
   // res.send(`Wallet is deleted!`)
 })
+//switch wallet into null
+app.get('/showWallet', (req, res) => {
+  let uid = req.session.uid
+  let sql = `UPDATE user SET focusWallet=null WHERE uid=${uid}`
+  queryPromise(sql).then(none => {
+    sql = `SELECT wid, wname FROM wallet WHERE wid IN (SELECT wid FROM userWallet WHERE uid = ${uid})`
+    return queryPromise(sql);
+  }).then(result => {
+    res.send(JSON.stringify(result));
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+})
 //switch wallet
-app.get('/switchWallet', (req, res) => {
+app.post('/switchWallet', (req, res) => {
   let param = {
     uid: req.session.uid,
-    wid: req.query.wallet
+    wid: req.body.wallet
   }
   let sql = `UPDATE user SET focusWallet=${param.wid} WHERE uid=${param.uid}`
   queryPromise(sql).then(none => {
@@ -172,9 +186,9 @@ app.post('/insertHistory', (req, res) => {
     getter: req.session.uid,
     payer: null
   }
-  let sql = `INSERT INTO history (time, item, money, tag) 
-            VALUES ("${param.time}", "${param.item}", ${param.money}, "${param.tag}")`
-  let prom = queryPromise(sql).then(none => {
+  let sql = `INSERT INTO history (hid, time, item, money, tag) 
+    VALUES ((SELECT focusWallet FROM user WHERE uid=${param.uid}), "${param.time}", "${param.item}", ${param.money}, "${param.tag}")`
+  queryPromise(sql).then(none => {
     sql = `SELECT MAX(hid) AS hid FROM history`
     return queryPromise(sql);
   }).then(result => {
@@ -186,11 +200,12 @@ app.post('/insertHistory', (req, res) => {
     param.promises = new Array(result.length);
     for(let i=0; i<result.length; i++) {//parallel
       if(param.uid == result[i].uid) {
-        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.hid}, ${result[i].uid}, -1)`
+        let ratio = 1-1/(result.length*1.0);
+        sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.hid}, ${result[i].uid}, ${ratio})`
         param.promises[i] = queryPromise(sql);
       }
       else {
-        let ratio = 1/(result.length-1.0);
+        let ratio = 1/(result.length*1.0);
         sql = `INSERT INTO userHistory (hid, uid, ratio) VALUES (${param.hid}, ${result[i].uid}, ${ratio})`
         param.promises[i] = queryPromise(sql);
       }
@@ -212,15 +227,6 @@ app.get('/joinWallet', (req, res) => {
   connection.query(sql, (err, results) => {
     if(err) throw err
     console.log(`create userWallet`)
-  })
-})
-// show user wallet 
-app.get('/showWallet', (req, res) => {
-  let uid = req.session.uid
-  let sql = `SELECT wname FROM wallet WHERE wid IN (SELECT wid FROM userWallet WHERE uid = "${uid}")`
-  connection.query(sql, (err, results) => {
-    if(err) throw err
-    console.log(results)
   })
 })
 // get member from wallet
@@ -249,33 +255,23 @@ app.get('/getMember', (req, res) => {
 })
 // set nickname
 app.get('/setNickname', (req, res) => {
-  let uid, wid
+  let uid = req.session.uid, wid
   let wname = req.query.wname
   let nick  = req.query.nickname
   let uname = req.session.username
-  let sql = `SELECT uid FROM user WHERE username = ${uname}`
+  let sql = `SELECT focusWallet FROM user WHERE uid=${uid}`
   connection.query(sql, (err, results) => {
     if(err) throw err
-    uid = results[0].uid
-    sql = `SELECT wid FROM wallet WHERE wname = ${wname}`
-    connection.query(sql, (err, results) => {
+    wid = results[0].focusWallet
+    sql = `UPDATE userWallet SET nickname='${nick}' WHERE uid=${uid} AND wid=${wid}`
+    connection.query(sql, err => {
       if(err) throw err
-      wid = results[0].wid
-      sql = `UPDATE 
-               userWallet SET nickname = '${nick}' 
-             WHERE 
-               uid = ${uid} AND
-               wid = ${wid}
-            `
-      connection.query(sql, err => {
-        if(err) throw err
-        res.send("Nickname is updated!")
-      })
+      res.send("Nickname is updated!")
     })
   })
 })
 
-
+/*
 // select user
 app.get('/selectUser', (req, res) => {
   let sql = 'SELECT * FROM user'
@@ -302,9 +298,9 @@ app.get('/deleteUser/:password', (req, res) => {
     res.send("User deleted")
   })
 })
-
+*/
 // get all item & money from the given day
-app.post('/splitMoney1', (req, res) => {
+app.post('/getHistoryDay', (req, res) => {
   function promisifysql(f) {
     return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
   }
@@ -315,7 +311,7 @@ app.post('/splitMoney1', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT item, money FROM (SELECT history.time, history.item, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub WHERE (wid=${param.wid} AND time="${param.date}")`
+    sql = `SELECT item, money FROM history WHERE (wid=${param.wid} AND time="${param.date}")`
     return queryPromise(sql);
   }).then(result => {
     let ret = {
@@ -329,7 +325,7 @@ app.post('/splitMoney1', (req, res) => {
   })
 })
 // get total money of each member from the given day
-app.post('/splitMoney2', (req, res) => {
+app.post('/splitMoneyDay', (req, res) => {
   function promisifysql(f) {
     return (query) => new Promise((query, resolve, reject) => connection.query(query, resolve, reject))
   }
@@ -341,14 +337,10 @@ app.post('/splitMoney2', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT uid, nickname FROM userWallet WHERE wid=${param.wid} ORDER BY uid`
+    sql = `SELECT sub3.uid, sub3.nickname, sub.totalmoney FROM ((SELECT uid, nickname FROM userWallet WHERE wid=${param.wid}) AS sub3) INNER JOIN ((SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT hid, money from history WHERE (wid=${param.wid} AND time="${param.date}")) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid) AS sub) ON sub3.uid=sub.uid ORDER BY sub3.uid `
     return queryPromise(sql);
   }).then(result => {
-    ret.nickname = result;
-    sql = `SELECT userHistory.uid, SUM(userHistory.ratio*sub2.money) AS totalmoney from userHistory INNER JOIN ((SELECT sub.hid, sub.money from ((SELECT history.hid, history.time, history.money, walletHistory.wid FROM history INNER JOIN walletHistory ON history.hid=walletHistory.hid) AS sub) WHERE (sub.wid=${param.wid} AND sub.time=${param.date})) AS sub2) ON userHistory.hid=sub2.hid GROUP BY userHistory.uid ORDER BY userHistory.uid`
-    return queryPromise(sql);
-  }).then(result => {
-    ret.money = result;
+    ret.data = result;
     res.send(JSON.stringify(ret));
   }).catch(err => {
     console.log(err);
