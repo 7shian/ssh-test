@@ -277,7 +277,7 @@ app.post('/getHistoryUnchecked', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT item, money FROM history WHERE (wid=${param.wid} AND checked=0) ORDER BY hid`
+    sql = `SELECT hid, item, money FROM history WHERE (wid=${param.wid} AND checked=0) ORDER BY hid`
     return queryPromise(sql);
   }).then(result => {
     const ret = {
@@ -299,7 +299,7 @@ app.post('/getHistoryDate', (req, res) => {
   let sql = `SELECT focusWallet FROM user WHERE uid=${param.uid}`
   queryPromise(sql).then(result => {
     param.wid = result[0].focusWallet;
-    sql = `SELECT item, money FROM history WHERE (wid=${param.wid} AND time="${param.date}")`
+    sql = `SELECT hid, item, money FROM history WHERE (wid=${param.wid} AND time="${param.date}")`
     return queryPromise(sql);
   }).then(result => {
     const ret = {
