@@ -78,6 +78,49 @@
 // return : Success / Fail
 // ---------------------------------
 // to-do : setup history.wid
-
-
-
+// --------set nickname-----------
+//
+// app.get('setNickname')
+//
+// input data: {nickname: (string)}
+// additional:  user should login
+//              user should be in wallet
+// return:    Nickname is updated(success)
+// --------------------------------
+// to-do: merge nickname and money
+//
+//---------get History from Day-----------
+//
+// app.get('getHistoryDay')
+//
+// input data: {date: (date)}
+// additional:  user should login
+//              user should be in wallet
+// return:    {
+//            date: (date)
+//            result: [{
+//                      item: (string),
+//                      money: (double)
+//                      },...]
+//            }
+// --------------------------------
+// to-do: none
+//
+// --------split Money from Day-----------
+//
+// app.get('splitMoneyDay')
+//
+// input data: {date: (date)}
+// additional:  user should login
+//              user should be in wallet
+// return:    {
+//              date: (date),
+//              data: [{
+//                      user: (uid),
+//                      nickname: (string),
+//                      money: (double)
+//                      },...]
+//            }
+// --------------------------------
+// to-do: merge nickname and money
+//
