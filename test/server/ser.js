@@ -290,8 +290,8 @@ app.post('/getHistoryUnchecked', (req, res) => {
     res.status(500).send(err);
   })
 })
-// get all item & money from the given day
-app.post('/getHistoryDay', (req, res) => {
+// get all item & money from the given date
+app.post('/getHistoryDate', (req, res) => {
   const param = {
     uid: req.session.uid,
     date: req.body.date
