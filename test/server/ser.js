@@ -56,14 +56,14 @@ const queryPromise = sql => {
 }
 // user signup
 app.get('/signupUser', (req, res) => {
-  let name = req.query.mail
-  let email = req.query.mail
+  let uname = req.query.mail
+  let email = uname
   let pswd = req.query.password
-  let post = {username: name, password: pswd, mail: email}
-  let sql  = 'INSERT INTO user SET ?'
-  connection.query(sql, post, err => {
-    if(err) throw err
-    res.send("User is added")
+  let post = {username: uname, password: pswd, mail: email}
+  let sql  = `INSERT INTO user (username, password, mail) VALUES ("${uname}", "${pswd}", "${email}")`
+  connection.query(sql, err => {
+    if(err) res.status(500).send(err)
+    else res.send("User is added")
   })
 })
 // user login
@@ -84,6 +84,15 @@ app.get('/loginUser', (req, res) => {
     }
     else res.send("password is wrong")
   }) 
+})
+// show username
+app.get('/showUsername', (req, res) => {
+  let uid = req.session.uid
+  let sql = `SELECT username FROM user WHERE uid = "${uid}"`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    res.send(results[0].username)
+  })
 })
 // showAll user
 app.get('/showAll-user', (req, res) => {
@@ -113,10 +122,10 @@ app.get('/insertWallet', (req, res) => {
   queryPromise(sql).then(result => {
     param.wid = result[0].wid + 1;
     param.code = crypto.createHash("sha256").update(param.wname + "//" + param.wid, "utf8").digest("hex").substring(1,8);
-    sql = `INSERT INTO wallet SET (wname, code) VALUES("${param.wname}", "${param.code}")`
+    sql = `INSERT INTO wallet (wname, code) VALUES ("${param.wname}", "${param.code}")`
     return queryPromise(sql);
   }).then(none => {
-    sql = `INSERT INTO userWallet SET (uid, wid) VALUES(${param.uid}, ${param.wid})`
+    sql = `INSERT INTO userWallet (uid, wid) VALUES(${param.uid}, ${param.wid})`
     return queryPromise(sql);
   }).then(none => {
     res.send("Success");
@@ -197,20 +206,22 @@ app.post('/insertHistory', (req, res) => {
 })
 // join wallet
 app.get('/joinWallet', (req, res) => {
-  let wallet = req.query.wallet
-  let uname  = req.session.username
+  let idcode = req.query.idcode
+  let uid  = req.session.uid
   // should use the wallet code 
-  let sql = `INSERT INTO
-               userWallet (uid, wid)  
-             VALUES (
-               (SELECT uid FROM user WHERE username = ${uname}),
-               (SELECT wid FROM wallet WHERE wname = ${wallet})
-             )
-            `
-  // let sql = `SELECT wid FROM wallet WHERE wname = ${wallet}`
+  let sql = `INSERT INTO userWallet (uid, wid) VALUES ("${uid}", (SELECT wid FROM wallet WHERE code = "${idcode}"))`
   connection.query(sql, (err, results) => {
     if(err) throw err
-    res.send(`User has joined the wallet: ${wallet}`)
+    console.log(`create userWallet`)
+  })
+})
+// show user wallet 
+app.get('/showWallet', (req, res) => {
+  let uid = req.session.uid
+  let sql = `SELECT wname FROM wallet WHERE wid IN (SELECT wid FROM userWallet WHERE uid = "${uid}")`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    console.log(results)
   })
 })
 // get member from wallet

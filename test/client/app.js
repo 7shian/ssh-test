@@ -3,7 +3,7 @@ $(document).ready(function() {
   $('#signup-user-form button[type="submit"]').click((event) => {
     event.preventDefault()
     $.get('./signupUser', {
-      username: $('#signup-user-form input[name=username]').val(),
+      mail: $('#signup-user-form input[name=mail]').val(),
       password: $('#signup-user-form input[name=password]').val(),
     }, (data) => {
       $('#signup-user-output').html(data)
