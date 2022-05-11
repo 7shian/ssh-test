@@ -44,7 +44,7 @@
 			<div id="__Page__menu__funny">
 			  <p class="__Page__menu__word">梗圖</p>
 			</div>
-			<div id="__Page__menu__pocket_check">
+			<div id="__Page__menu__pocket_check" onclick="change_page(2)">
 			  <p class="__Page__menu__word">錢包總覽</p>
 			</div>
 			<div id="__Page__menu__about_us">
@@ -64,20 +64,6 @@
 		</div>
 		<div id="__Page7__inform__container">
 		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 房租費 300 元<br></label>
-		  <label id="delete_id" class="__Page7__inform">4/31 乙 記了 防疫旅館費 222300 元<br></label>
 		</div>
 		<img id="__Page7__bottomimg" class="__Page7__bottomimg" src="./icon/team2.png" onclick="checkbill_openorclose()" alt="記帳">
 		<img id="__Page7__bottomimg2" class="__Page7__bottomimg" src="./icon/team2.png" alt="手動" onclick="change_page(6)">
@@ -91,7 +77,7 @@
 		
 		<div id="__Page6__text_bill__container">
 		  <!--div class="__Page6__word__bar"-->
-		    <p class="__Page6__bill_word">待分帳項目</p>
+		    <p class="__Page6__bill_word" onclick="add_checkbox()">待分帳項目</p>
 		  <!--/div-->
 		</div>
 		<div id="__Page6__bill__container">
@@ -162,7 +148,7 @@
 	  </div>
 	  <div id="__Page16__fullscreen" class="tab-inner">
 		<div id="__Page16__pocket__container">
-		  <p class="__Page16__pocketname">錢包名</p>
+		  <p class="__Page16__pocketname">台南住宿(3)</p>
 		  <img class="__Page16__pocketimg" src="./icon/team2.png" alt="更改">
 		</div>
 		<div id="__Page16__invite__container">
@@ -171,7 +157,7 @@
 		      <p class="__Page16__inviteid">邀請連結</p>
 			  <img class="__Page16__pocketimg" src="./icon/team2.png" alt="連結">
 			 </DIV>
-		    <p class="__Page16__inviteid">#16555a2ssq</p>
+		    <p class="__Page16__inviteid">#165552</p>
 		  </div>
 		</div>
 		<div id="__Page16__team__container">
@@ -180,26 +166,24 @@
 		<div id="__Page16__teammate__container">
 			<label id="delete_id" class="__Page16__teammatename">
 			  <img class="__Page16__userimg" src="./icon/team2.png" alt="大頭照">
-			  xxxx
+			  涵毅
 			</label>
 			<label id="delete_id" class="__Page16__teammatename">
 			  <img class="__Page16__userimg" src="./icon/team2.png" alt="大頭照">
-			  bb
+			  子桓
 			</label>
 		</div>
 		
 		
 		
-	  </div>
-	
+	  </div>	
       <div id="__Mainpage__homepage__container" class="tab-inner">
         <div id="homepage__header__bar"><span class="homepage_title">錢包圖片</span></div>
         <div id="homepage__notif__bar"><span>Notification</span></div>
         <div id="homepage__footer__bar">
           <button class="fab-btn lively" type="button" id="fab-add">+</button>
         </div>
-      </div>
-	  
+      </div>	  
 	  <div id="__Mainpage__manualTrack__container" class="tab-inner">
         <div id="manualTrack__header__bar"><a class="cancel-icon" href="history.back()" target="_top"></a><span class="manualTrack_title">新增支出</span></div>
         <div id="manualTrack__input__bar"><span>帳目名稱</span>
@@ -223,9 +207,8 @@
 	
 	
 	</div>
-
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../../dist/js/mainpage.js"></script>
+    <!--script type="text/javascript" src="./mainpage.js"></script-->
 	<script src="./BeiBei.js"></script>
   </body>
 </html>
