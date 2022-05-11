@@ -147,6 +147,20 @@ app.get('/deleteWallet', (req, res) => {
   connection.query(sql, err => { if(err) throw err })
   // res.send(`Wallet is deleted!`)
 })
+//switch wallet into null
+app.get('/showWallet', (req, res) => {
+  let uid = req.session.uid
+  let sql = `UPDATE user SET focusWallet=null WHERE uid=${uid}`
+  queryPromise(sql).then(none => {
+    sql = `SELECT wid, wname FROM wallet WHERE wid IN (SELECT wid FROM userWallet WHERE uid = ${uid})`
+    return queryPromise(sql);
+  }).then(result => {
+    res.send(JSON.stringify(result));
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+})
 //switch wallet
 app.get('/switchWallet', (req, res) => {
   let param = {
@@ -215,15 +229,6 @@ app.get('/joinWallet', (req, res) => {
     console.log(`create userWallet`)
   })
 })
-// show user wallet 
-app.get('/showWallet', (req, res) => {
-  let uid = req.session.uid
-  let sql = `SELECT wname FROM wallet WHERE wid IN (SELECT wid FROM userWallet WHERE uid = "${uid}")`
-  connection.query(sql, (err, results) => {
-    if(err) throw err
-    console.log(results)
-  })
-})
 // get member from wallet
 app.get('/getMember', (req, res) => {
   let wname = req.query.wname
@@ -266,7 +271,7 @@ app.get('/setNickname', (req, res) => {
   })
 })
 
-
+/*
 // select user
 app.get('/selectUser', (req, res) => {
   let sql = 'SELECT * FROM user'
@@ -293,7 +298,7 @@ app.get('/deleteUser/:password', (req, res) => {
     res.send("User deleted")
   })
 })
-
+*/
 // get all item & money from the given day
 app.post('/getHistoryDay', (req, res) => {
   function promisifysql(f) {
