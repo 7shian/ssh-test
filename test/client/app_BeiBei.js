@@ -54,4 +54,10 @@ $(document).ready(function() {
       money: $('#').val()
     })
   })
+  // 選擇錢包之後 notification 需要展示出來
+  $('#').click((event) => {
+    $.get('./showNotification', {}, (data) => { // this is not checked
+
+    })
+  })
 })

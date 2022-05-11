@@ -339,7 +339,16 @@ app.get('/showWalletName', (req, res) => {
   let sql = `SELECT wname FROM wallet WHERE wid = (SELECT focusWallet FROM user WHERE uid = "${uid}")`
   connection.query(sql, (err, results) => {
     if(err) throw err
-    console.log(results[0].wname)
     res.send(results[0].wname)
+  })
+})
+
+// show notification 
+app.get('/showNotification', (req, res) => {
+  let uid = req.session.uid
+  let sql = `SELECT notification FROM notifcation WHERE wid = (SELECT focusWallet FROM user WHERE uid = ${uid})`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    res.send(results)
   })
 })
