@@ -153,8 +153,19 @@ app.get('/leaveWallet', (req, res) => {
   /*
   */
 })
+// show wallet name
+app.get('/showWalletName', (req, res) => {
+  let uid = req.session.uid
+  // let sql = `SELECT wname FROM wallet WHERE wid = (SELECT focusWallet FROM user WHERE uid = "${uid}")`
+  let sql = `SELECT wname FROM wallet WHERE wid = "85"`
+  connection.query(sql, (err, results) => {
+    if(err) throw err
+    console.log(results[0].wname)
+    res.send(results[0].wname)
+  })
+})
 //switch wallet into null
-app.get('/showWallet', (req, res) => {
+app.get('/showAllWallet', (req, res) => {
   let uid = req.session.uid
   let sql = `UPDATE user SET focusWallet=null WHERE uid=${uid}`
   queryPromise(sql).then(none => {
@@ -331,17 +342,5 @@ app.get('/showAll-user', (req, res) => {
       // res.send(`There are tables: ${results[i].username}`)
       str = str + `user${i+1}: ${results[i].username}, password: ${results[i].password} <br>`
     res.send(str)
-  })
-})
-
-// show wallet name
-app.get('/showWalletName', (req, res) => {
-  let uid = req.session.uid
-  // let sql = `SELECT wname FROM wallet WHERE wid = (SELECT focusWallet FROM user WHERE uid = "${uid}")`
-  let sql = `SELECT wname FROM wallet WHERE wid = "85"`
-  connection.query(sql, (err, results) => {
-    if(err) throw err
-    console.log(results[0].wname)
-    res.send(results[0].wname)
   })
 })
