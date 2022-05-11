@@ -134,8 +134,10 @@ app.get('/insertWallet', (req, res) => {
     res.status(500).send(err);
   })
 })
-// delete user wallet 
+// delete user wallet (will cause error)
 app.get('/deleteWallet', (req, res) => {
+  res.status(501).send("cannot delete wallet");
+  /*
   let wname = req.query.wallet
   let uname = req.session.username
   let sql   = `DELETE FROM userWallet WHERE (uid) LIKE
@@ -145,7 +147,14 @@ app.get('/deleteWallet', (req, res) => {
   connection.query(sql, err => { if(err) throw err })
   sql = `DELETE FROM wallet WHERE (wname) LIKE ${wname}`
   connection.query(sql, err => { if(err) throw err })
+    */
   // res.send(`Wallet is deleted!`)
+})
+// leave wallet
+app.get('/leaveWallet', (req, res) => {
+  res.status(501).send("cannot leave wallet");
+  /*
+  */
 })
 //switch wallet into null
 app.get('/showWallet', (req, res) => {
