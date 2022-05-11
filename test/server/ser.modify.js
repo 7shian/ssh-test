@@ -148,9 +148,20 @@ app.get('/joinWallet', (req, res) => {
   })
 })
 // leave wallet
-app.get('/leaveWallet', (req, res) => {
+app.post('/leaveWallet', (req, res) => {
   res.status(501).send("cannot leave wallet");
   /*
+  let param = {
+    uid: req.session.uid,
+    wid: req.body.wallet
+  }
+  let sql = `DELETE FROM userWallet WHERE uid=${param.uid} AND wid=${param.wid}`
+  queryPromise(sql).then(none => {
+    res.send("Success");
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
   */
 })
 //switch wallet into null
