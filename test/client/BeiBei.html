@@ -57,12 +57,13 @@
 		  <img class="__Page7__moneyimg" src="./midterm_icon/split_mainlogo.png" alt="錢包圖片">
 		</div>
 		<div id="__Page7__inform__container">
-		  <!--div id="__Page7__inform__bar"-->
-		  <img class="__Page7__inform__noteimg" src="./midterm_icon/notification.png" alt="通知欄">
-			<!--div id="__Page7__inform">
+		  <div id="__Page7__inform__bar">
+		  <!--img class="__Page7__inform__noteimg" src="./midterm_icon/notification.png" alt="通知欄"-->
+			<div id="__Page7__inform">
 			  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-			</div-->
-		  <!--/div-->
+			  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+			</div>
+		  </div>
 		</div>
 		<div id="__Page7__bottomimg" onclick="checkbill_openorclose()">
 			<img class="__Page7__bottomimg" src="./midterm_icon/add.png" alt="記帳">
@@ -93,11 +94,11 @@
 		  
 	  </div>
 	  <div id="__Mainpage__overview__container" class="tab-inner">
-        <div id="__overview__header__bar"><span id="overview_title">錢包總覽</span></div>
-        <div id="__overview__flexbox__bar"><a class="flex-item" target="_top" onclick="change_page(0)">台南租嗚</a><a class="flex-item" href="#">林氏</a></div>
-        <div id="__overview__footer__bar"><a id="join-wallet-request" class="__Page__menu__word" href="./register.html#__Register__join-wallet__container" target="_top"><span>加入錢包</span></a>
+        <div id="__overview__header__bar"><span id="overview_title">我的錢包</span></div>
+        <div id="__overview__flexbox__bar"><a id="first-wallet" class="flex-item" target="_top" onclick="change_page(0)">台南住宿</a><a class="flex-item" href="#">林家</a></div>
+        <div id="__overview__footer__bar"><a class="overview-flex" href="#" target="_top"><span>加入錢包</span></a>
           <span class="between"></span>
-          <a id="new-wallet-request" class="__Page__menu__word" href="./register.html#__Register__new-wallet__container" target="_top"><span>新增錢包</span></a>
+          <a class="overview-flex" href="#" target="_top"><span>創建錢包</span></a>
         </div>
 	  </div>
 	  <div id="__Page18__fullscreen" class="tab-inner">
@@ -140,13 +141,18 @@
 		  </div>
 		</div>
 		<!--div id="__Page18__result3-2__container">
-		  <img class="__Page7__moneyimg" src="./icon/team2.png" alt="梗圖">
-		</div-->
-		<div id="__Page18__result3-2__container">
 		  <img class="__Page7__inform__noteimg" src="./midterm_icon/notification.png" alt="梗圖欄">
-			<!--div id="__Page7__inform">
-			  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-			</div-->
+		  __Page7__inform__container
+		</div-->
+		
+		<div id="__Page18__result3-2__container">
+		  <div id="__Page18__inform__bar">
+			<div id="__Page18__inform">
+			  <img class="__Page18__inform__noteimg" src="./midterm_icon/gengpic.png" alt="梗圖">
+			  <!--label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+			  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label-->
+			</div>
+		  </div>
 		</div>
 		
 	  </div>
@@ -190,15 +196,14 @@
       </div>	  
 	  <div id="__Mainpage__manualTrack__container" class="tab-inner">
         <div id="manualTrack__header__bar"><a class="cancel-icon" href="history.back()" target="_top"></a><span class="manualTrack_title">新增支出</span></div>
-        <!-- should wrapped as a form, which can select by name tag -->
-		<div id="manualTrack__input__bar"><span id="account_name">帳目名稱</span>
-          <label>$
+        <div id="manualTrack__input__bar"><span>帳目名稱</span>
+          <lable>$
             <input inputmode="numeric" pattern="[0-9]*" placeholder="0" type="text" name="expense">
-          </label>
+          </lable>
           <hr class="break_style">
         </div>
-        <div id="manualTrack__infos__bar"><span id="comment">備註</span>
-          <hr class="break_style"><span id="splitter">分攤人</span>
+        <div id="manualTrack__infos__bar"><span>備註</span>
+          <hr class="break_style"><span>分攤人</span>
           <div id="split-bill_flexbox">
             <div class="user-icons lively"><i class="fas fa-user"></i></div>
           </div>
@@ -212,9 +217,9 @@
 	
 	
 	</div>
+	<script src="./app_BeiBei.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!--script type="text/javascript" src="./mainpage.js"></script-->
 	<script src="./BeiBei.js"></script>
-	<script src="./app_BeiBei.js"></script>
   </body>
 </html>

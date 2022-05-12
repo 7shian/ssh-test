@@ -1,6 +1,10 @@
 @font-face {
-  font-family: 'Inter';
-  src: url("./word/Inter-VariableFont_slnt,wght.ttf");
+  font-family: Int2;
+  src: url("./word/static/Inter-Bold.ttf") format("opentype");
+}
+@font-face {
+  font-family: Int6;
+  src: url("./word/static/Inter-Medium.ttf") format("opentype");
 }
 
 body {
@@ -92,13 +96,15 @@ body {
 	height: 12vh;
 }
 .__Page__menu__head_word{
-	font: 5vw Helvetica bold Condensed;
+	font-size:5vw;
+	font-weight: 1000;
     margin-top: calc(15vh);
     margin-bottom: 0;
 }
 .__Page__menu__word{
 	left: calc(70vw/2 - 38.4vw/2);
-    font: 7vw Helvetica bold Condensed;
+    font-size: 7vw;
+	font-weight: 1000;
     position: relative;
     margin: 0;
     height: 6.6vh;
@@ -139,9 +145,9 @@ body {
 #__Page18__word__containerid{background-color: #ADADAD;}
 
 .__Page6__bill_word,.__Page12__bill_word,.__Page18__bill_word{
-	font-family: 'Inter';
+	font-family: Int2;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 1000;
 	font-size: 7.2vw;
 	text-align: center;
 	color: #000000;
@@ -149,7 +155,8 @@ body {
 
 .__Page6__bill_check{
 	/*font: 6vw Helvetica bold Condensed;*/
-	font: 6vw Inter bold Condensed;
+	font: 6vw Int6; 
+	font-weight: 550;
 	color: #000000;
 	position: relative;
     left: 10vw;
@@ -220,32 +227,34 @@ body {
     text-align: center;
 }
 
-#__Page7__inform__bar {
-	/*width: calc(43 * 2vw);
-    height: calc(50vh);  
-    margin: 8vh 7vw 0;
-    position: fixed;
-	display: flex;*/
+#__Page7__inform__bar,#__Page18__inform__bar {
+	background-image: url(./midterm_icon/notification.png);
+    background-size: 80vw 30vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 100vw;
 
 }
 .__Page7__inform__noteimg {
+	/*
 	max-width: 80vw;
-    max-height: 40vh;
+    max-height: 40vh;*/
 }
 
 
 #__Page7__inform {
-	width: calc(43 * 2vw);
-    height: calc(38 * 2vw - 11vw);
+	width: 76vw;
+    height: 25vh;
     display: flex;
-    margin-top: 11vw;
-    overflow: auto;
-    position: fixed;
+    margin: 14.5vh 11vw 0;
     flex-direction: column;
     text-align: left;
+    overflow-x: hidden;
 }
 .__Page7__inform{
-	font: 5vw Helvetica bold Condensed;
+	font: 5vw int2;
+	font-weight: 600;
 	width: 78vw;
 	padding-top: 1vh;
 	position: relative;
@@ -352,7 +361,8 @@ body {
 }
 
 .__Page18__bill_check{
-	font: 7.2vw Helvetica bold Condensed;
+	font: 7.2vw int6;
+    font-weight: 550;
 	color: #000000;
 	position: relative;
     left: 30vw;
@@ -370,6 +380,15 @@ body {
     border: 3px solid #000000;
 	box-shadow: 1vw 1vw 0px #000000;
     border-radius: 10px;
+}
+#__Page18__inform {
+	display: flex;
+	margin: 14.5vh 10.8vw 0;
+    /*margin: 14.5vh 11vw 0;*/
+}
+.__Page18__inform__noteimg {
+    height: 24.8vh;
+    width: 77vw;
 }
 
 #__Page16__pocket__container {
@@ -404,7 +423,11 @@ body {
 
 
 .__Page16__pocketname,.__Page16__username,.__Page16__teamname,.__Page16__inviteid{
-	font: 5vw Helvetica bold Condensed;
+	font: 5vw int6;
+    font-weight: 600;
+}
+.__Page16__inviteid{
+    font-weight: 500;
 }
 
 .__Page16__teamname,.__Page16__inviteid{
@@ -412,7 +435,8 @@ body {
 }
 
 .__Page16__teammatename{
-	font: 5vw Helvetica bold Condensed;
+	font: 5vw int6;
+    font-weight: 600;
     position: relative;
 	margin-right: 5vw;
 	display: flex;

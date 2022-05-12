@@ -16,6 +16,14 @@ $(document).ready(function() {
       */
     })
   })
+  // push the first wallet 台南住宿
+  // $('#first-wallet').click((event) => {
+  //   $.post('./switchWallet', {
+  //     wid: $('#form-normal i')
+  //   }, (data) => {
+      
+  //   })
+  // })
   // switch to 分帳 page
   $('#__Page__menu__page2').click((event) => { 
     $.get('./getHistoryDate', {}, (data) => {
