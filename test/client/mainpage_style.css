@@ -13,12 +13,14 @@ a {
 }
 
 #__overview__header__bar {
-    padding: 13vh 0 1.5vh;
+    background-color: #6bdcff;
+    margin-bottom: 1vh;
+    padding: 22vh 0 3.5vh;
 }
 
 #__overview__flexbox__bar {
     display: flex;
-    height: 54vh;
+    height: 43vh;
     justify-content: center;
     margin: 0 auto;
     overflow-y: auto;
@@ -28,7 +30,7 @@ a {
 #__overview__footer__bar {
     display: flex;
     justify-content: center;
-    margin: 13.5vh 0 6vh;
+    margin: 9vh 0 9.5vh;
 }
 
 #__Mainpage__homepage__container {
@@ -79,6 +81,7 @@ a {
 
 #overview_title {
     font-size: 24px;
+    font-weight: 700;
 }
 
 #__overview__flexbox__bar::-webkit-scrollbar { 
@@ -86,22 +89,37 @@ a {
 }
 
 .flex-item {
-    background-color: #c4c4c4;
+    background-color: #e5e5e5;
+    border: 4px solid #000000;
+    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
+    border-radius: 10px;
     display: inline-flex;
     font-size: 24px;
-    margin: 77px 7px 0;
+    margin: 30px 15px 0;
     padding-top: 24px;
     justify-content: center;
-    height: 152px;
-    width: 152px;
+    height: 150px;
+    width: 150px;
 }
 
 .between {
     padding: 0 3vw;
 }
 
-.overview-flex {
+#join-wallet-request {
+    border-radius: 6px;
+    font-size: 20px;
+    left: 0;
+}
+
+#new-wallet-request {
+    border-radius: 6px;
+    font-size: 20px;
+    left: 0;
+}
+
+/* .overview-flex {
     background-color: #c4c4c4;
     display: inline-flex;
     font-size: large;
@@ -109,7 +127,7 @@ a {
     width: 32vw;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .homepage_title {
     font-size: 32px;

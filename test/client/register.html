@@ -1,68 +1,86 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-  <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>registration</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
-    <link rel="stylesheet" href="./register_style.css">
-  </head>
-  <body>
-    <div id="__Register__fullscreen">
-      <div id="__Register__form-normal__container">
-        <h3 id="title-normal">註冊</h3><br>
-        <form id="form-normal" action="/" method="post">
-          <label>
-            <input class="lively" type="email" name="email" value="" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" required>
-          </label><br><br>
-          <label>
-            <input class="lively" type="password" name="pwd" value="" placeholder="Password" pattern="[A-Za-z0-9]{8,}" required>
-          </label><br><br>
-          <button type="reset" onclick="history.back()" id="form-return">重新輸入</button><span class="between"></span>
-          <button type="button" onclick="window.location='#__Register__wallet__container'" id="form-submit">送出資料</button><br><br>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>registration</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="./register_style.css">
+</head>
+
+<body>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <div id="__Register__fullscreen">
+    <div id="__Register__form-normal__container">
+      <h3 id="title-normal">建立新帳號</h3><br>
+      <form id="form-normal" action="/" method="post">
+        <label>
+          <input class="lively" type="email" name="email" value="" placeholder="Email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" required>
+        </label><br><br>
+        <label>
+          <input class="lively" type="password" name="pwd" value="" placeholder="Password" pattern="[A-Za-z0-9]{8,}"
+            required>
+        </label><br><br>
+        <button class="lively brand-color" type="button" onclick="window.location='#__Register__wallet__container'"
+          id="form-submit">註冊</button><br><br>
+      </form>
+    </div>
+    <div id="__Register__form-quick__container">
+      <h3 id="title-quick">已經有帳號</h3>
+      <a class="quick_button" href="#"><i class="fab fa-facebook"></i></a>
+      <span class="between"></span>
+      <a class="quick_button" href="#"><i class="fab fa-line"></i></a>
+      <span class="between"></span>
+      <a class="quick_button" href="#"><i class="fab fa-google"></i></a>
+    </div>
+    <div class="banner-padding" id="__Register__banner__container"><img class="brand-logo"
+        src="./midterm_icon/split_smalllogo.png" alt="brand logo"></div>
+    <!-- flex-->
+    <div id="__Register__wallet__container">
+      <div id="__walletInfo__bar">
+        <div class="user-icons lively" id="usericon"><i class="fas fa-user"></i></div>
+        <br>
+        <br>
+        <span id="username">darbyishandsome@gmail.com
+      </div>
+      <div id="__walletMenu__bar"><a class="menu-flex lively" href="#__Register__join-wallet__container"
+          target="_top"><span>加入錢包</span></a><a class="menu-flex lively" href="#__Register__new-wallet__container"
+          target="_top"><span>新增錢包</span></a></div>
+      <div class="banner-padding" id="__wallet__banner"><img class="brand-logo"
+          src="./midterm_icon/split_smalllogo.png" alt="brand logo"></div>
+    </div>
+    <!-- -->
+    <div id="__Register__join-wallet__container">
+      <div id="__joinWallet__bar">
+        <p>加入錢包</p>
+        <form id="join-wallet" action="./BeiBei.html" method="get">
+          <input class="enter_button" type="text" name="IDcode" value="" placeholder="輸入ID CODE" pattern="[a-z0-9]{6}" required>
+          <!-- <input type="submit" onclick="" hidden> -->
+          <button class="lively brand-color wallet_submit" type="submit" onclick="" id="join-wallet-submit">確認</button>
         </form>
       </div>
-      <div id="__Register__form-quick__container">
-        <h3 id="title-quick">或者你已經有帳戶</h3>
-        <a class="quick_button" href="#"><i class="fab fa-facebook"></i></a>
-        <span class="between"></span>
-        <a class="quick_button" href="#"><i class="fab fa-line"></i></a>
-        <span class="between"></span>
-        <a class="quick_button" href="#"><i class="fab fa-google"></i></a>
-      </div>
-      <!-- flex-->
-      <div id="__Register__wallet__container">
-        <div id="__walletInfo__bar">
-          <div class="user-icons lively"><i class="fas fa-user"></i></div>
-          <p id="username">darbyishandsome@gmail.com</p>
-        </div>
-        <div id="__walletMenu__bar"><a class="menu-flex lively brand-color" href="#__Register__new-wallet__container" target="_top"><span>
-              <b>創建錢包</b></span></a><a class="menu-flex lively" href="#__Register__join-wallet__container" target="_top"><span>
-              <b>加入錢包</b></span></a></div>
-      </div>
-      <div id="__Register__new-wallet__container">
-        <div id="__newWallet__bar">
-          <form id="new-wallet" action="./BeiBei.html" method="get">
-            <input class="enter_button" type="text" name="Wallet" value="" placeholder="創建錢包名稱" required>
-            <input type="submit" onclick="" hidden>
-          </form>
-        </div>
-      </div>
-      <div id="__Register__join-wallet__container">
-        <div id="__joinWallet__bar">
-          <form id="join-wallet" action="./BeiBei.html" method="get">
-            <input class="enter_button" type="text" name="IDcode" value="" placeholder="輸入ID CODE" pattern="[a-z0-9]{7}">
-            <input type="submit" onclick="" hidden>
-          </form>
-        </div>
-      </div>
+      <div class="banner-padding" id="__joinWallet__banner"><img class="brand-logo"
+          src="./midterm_icon/split_smalllogo.png" alt="brand logo"></div>
     </div>
-
-    <script src="./app_register.js"></script>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
+    <!-- -->
+    <div id="__Register__new-wallet__container">
+      <div id="__newWallet__bar">
+        <form id="new-wallet" action="./BeiBei.html" method="get">
+          <input class="enter_button" type="text" name="Wallet" value="" placeholder="創建錢包名稱" required>
+          <!-- <input type="submit" onclick="" hidden> -->
+          <button class="lively brand-color wallet_submit" type="submit" onclick="" id="new-wallet-submit">確認</button>
+        </form>
+      </div>
+      <div class="banner-padding" id="newWallet__banner"><img class="brand-logo"
+          src="./midterm_icon/split_smalllogo.png" alt="brand logo"></div>
+    </div>
+  </div>
+  <script src="./app_register.js"></script>
+  <script>
       //- const Wallet = document.getElementsByName('Wallet');
       //- const input = document.getElementsByClassName("enter_button");
       //- const new_wallet = input[0];
@@ -72,6 +90,7 @@
       //-     document.getElementById("new-wallet").click();
       //-   }
       //- });
-    </script>
-  </body>
+  </script>
+</body>
+
 </html>

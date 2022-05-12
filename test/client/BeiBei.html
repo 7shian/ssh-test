@@ -22,14 +22,14 @@
 		
 	  </ul>
 	  <div id="__Page__menu__container">
-		  <img id="__Page__menu" class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(0)">
+		  <img id="__Page__menu" class="__Page__menu" src="./midterm_icon/menu.png" alt="menu" onclick="menu_openorclose(0)">
 		  <div id="__Page__menu__bar">
-		    <img id="__Page__menu" class="__Page__menu" src="./icon/team2.png" alt="menu" onclick="menu_openorclose(1)">
+		    <img id="__Page__menu" class="__Page__menu" src="./midterm_icon/previous.png" alt="menu" onclick="menu_openorclose(1)">
 		    <div id="__Page__menu__head_container">
 			  <div id="__Page__menu__head" onclick="change_page(4)"></div>
-			    <div id="__Page__menuword__head">
-			      <p id="__Page__menu__head_word" class="__Page__menu__head_word">錢包名</p>
-				  <img class="__Page__menualter" src="./icon/team2.png" alt="更改">
+			    <div id="__Page__menuword__head" >
+			      <p id="__Page__menu__head_word" class="__Page__menu__head_word" onclick="change_page(4)">錢包名</p>
+				  <img id="__Page__menualter" class="__Page__menualter" src="./midterm_icon/edit.png" alt="更改" onclick="change_page(4)">
 			    </div>
 			</div>
 			<div id="__Page__menu__home">
@@ -54,31 +54,29 @@
 		</div>
 	  <div id="__Page7__fullscreen" class="tab-inner">
 	    <div id="__Page7__moneyimg__container">
-		  <img class="__Page7__moneyimg" src="./icon/team2.png" alt="錢包圖片">
-		</div>
-		<div id="__Page7__helloword__container">
-		  <p class="__Page7__helloword">打招呼話語</p>
-		</div>
-		<div id="__Page7__informword__container">
-		  <p class="__Page7__informword">通知訊息</p>
+		  <img class="__Page7__moneyimg" src="./midterm_icon/split_mainlogo.png" alt="錢包圖片">
 		</div>
 		<div id="__Page7__inform__container">
-		  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
-		</div>
-		<img id="__Page7__bottomimg" class="__Page7__bottomimg" src="./icon/team2.png" onclick="checkbill_openorclose()" alt="記帳">
-		<img id="__Page7__bottomimg2" class="__Page7__bottomimg" src="./icon/team2.png" alt="手動" onclick="change_page(6)">
-		<img id="__Page7__bottomimg3" class="__Page7__bottomimg" src="./icon/team2.png" alt="掃描" onclick="change_page(0)">
-	  </div>
-	  <div id="__Page6__fullscreen" class="tab-inner">
-		<!--b class="touch __Page6__bill_word" onclick="change_page(2)">Page22</b>
-		<b class="touch __Page6__bill_word" onclick="change_page(3)">Page33</b>
-		<b class="touch __Page6__bill_word" onclick="add_checkbox()">ADDING</b>
-		<b class="touch __Page6__bill_word" onclick="delete_checkbox()">delete</b-->
-		
-		<div id="__Page6__text_bill__container">
-		  <!--div class="__Page6__word__bar"-->
-		    <p id="__Page6__bill_word" class="__Page6__bill_word" onclick="add_checkbox2()">待分帳項目</p>
+		  <!--div id="__Page7__inform__bar"-->
+		  <img class="__Page7__inform__noteimg" src="./midterm_icon/notification.png" alt="通知欄">
+			<!--div id="__Page7__inform">
+			  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+			</div-->
 		  <!--/div-->
+		</div>
+		<div id="__Page7__bottomimg" onclick="checkbill_openorclose()">
+			<img class="__Page7__bottomimg" src="./midterm_icon/add.png" alt="記帳">
+		</div>
+		<div id="__Page7__bottomimg2" onclick="change_page(6)">
+			<img class="__Page7__bottomimg" src="./midterm_icon/handwrite.png" alt="手動">
+		</div>
+		<div id="__Page7__bottomimg3" onclick="change_page(0)">
+			<img class="__Page7__bottomimg" src="./midterm_icon/scan.png" alt="自動">
+		</div>
+	  </div>
+	  <div id="__Page6__fullscreen" class="tab-inner">	
+		<div id="__Page6__text_bill__container">
+		  <p id="__Page6__bill_word" class="__Page6__bill_word" onclick="add_checkbox2()">待分帳項目</p>
 		</div>
 		<div id="__Page6__bill__container">
 			
@@ -95,11 +93,11 @@
 		  
 	  </div>
 	  <div id="__Mainpage__overview__container" class="tab-inner">
-        <div id="__overview__header__bar"><span id="overview_title">我的錢包</span></div>
-        <div id="__overview__flexbox__bar"><a class="flex-item" target="_top" onclick="change_page(0)">台南住宿</a><a class="flex-item" href="#">林家</a></div>
-        <div id="__overview__footer__bar"><a class="overview-flex" href="#" target="_top"><span>加入錢包</span></a>
+        <div id="__overview__header__bar"><span id="overview_title">錢包總覽</span></div>
+        <div id="__overview__flexbox__bar"><a class="flex-item" target="_top" onclick="change_page(0)">台南租嗚</a><a class="flex-item" href="#">林氏</a></div>
+        <div id="__overview__footer__bar"><a id="join-wallet-request" class="__Page__menu__word" href="./register.html#__Register__join-wallet__container" target="_top"><span>加入錢包</span></a>
           <span class="between"></span>
-          <a class="overview-flex" href="#" target="_top"><span>創建錢包</span></a>
+          <a id="new-wallet-request" class="__Page__menu__word" href="./register.html#__Register__new-wallet__container" target="_top"><span>新增錢包</span></a>
         </div>
 	  </div>
 	  <div id="__Page18__fullscreen" class="tab-inner">
@@ -129,7 +127,7 @@
 		  <div id="__Page6__word__containerid" class="__Page18__word__bar"  onclick="yes_checkbill(2)">
 		    <p class="__Page18__bill_word">催帳</p>
 		  </div>
-		  <div id="__Page18__word__containerid2" class="__Page18__word__bar">
+		  <div id="__Page18__word__containerid2" class="__Page18__word__bar" onclick="lock_checkbox()">
 		    <p class="__Page18__bill_word">繳清</p>
 		  </div>
 		</div>
@@ -141,21 +139,27 @@
 		    <p class="__Page18__bill_word">確認發送</p>
 		  </div>
 		</div>
-		<div id="__Page18__result3-2__container">
+		<!--div id="__Page18__result3-2__container">
 		  <img class="__Page7__moneyimg" src="./icon/team2.png" alt="梗圖">
+		</div-->
+		<div id="__Page18__result3-2__container">
+		  <img class="__Page7__inform__noteimg" src="./midterm_icon/notification.png" alt="梗圖欄">
+			<!--div id="__Page7__inform">
+			  <label id="delete_id" class="__Page7__inform">4/31 甲 記了 電費 300 元<br></label>
+			</div-->
 		</div>
 		
 	  </div>
 	  <div id="__Page16__fullscreen" class="tab-inner">
 		<div id="__Page16__pocket__container">
 		  <p class="__Page16__pocketname">台南住宿(3)</p>
-		  <img class="__Page16__pocketimg" src="./icon/team2.png" alt="更改">
+		  <img class="__Page16__pocketimg" src="./midterm_icon/edit.png" alt="更改">
 		</div>
 		<div id="__Page16__invite__container">
 		  <div id="__Page16__invite__bar" onclick="add_person()">
 		    <div id="__Page16__invitelink__bar" onclick="add_person()">
 		      <p class="__Page16__inviteid">邀請連結</p>
-			  <img class="__Page16__pocketimg" src="./icon/team2.png" alt="連結">
+			  <img class="__Page16__linkimg" src="./midterm_icon/link.png" alt="連結">
 			 </DIV>
 		    <p class="__Page16__inviteid">#165552</p>
 		  </div>
@@ -186,14 +190,15 @@
       </div>	  
 	  <div id="__Mainpage__manualTrack__container" class="tab-inner">
         <div id="manualTrack__header__bar"><a class="cancel-icon" href="history.back()" target="_top"></a><span class="manualTrack_title">新增支出</span></div>
-        <div id="manualTrack__input__bar"><span>帳目名稱</span>
-          <lable>$
+        <!-- should wrapped as a form, which can select by name tag -->
+		<div id="manualTrack__input__bar"><span id="account_name">帳目名稱</span>
+          <label>$
             <input inputmode="numeric" pattern="[0-9]*" placeholder="0" type="text" name="expense">
-          </lable>
+          </label>
           <hr class="break_style">
         </div>
-        <div id="manualTrack__infos__bar"><span>備註</span>
-          <hr class="break_style"><span>分攤人</span>
+        <div id="manualTrack__infos__bar"><span id="comment">備註</span>
+          <hr class="break_style"><span id="splitter">分攤人</span>
           <div id="split-bill_flexbox">
             <div class="user-icons lively"><i class="fas fa-user"></i></div>
           </div>

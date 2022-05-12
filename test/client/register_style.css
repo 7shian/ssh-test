@@ -3,6 +3,7 @@ body, html {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    font-family: Inter !important;
 }
 
 a {
@@ -10,9 +11,23 @@ a {
     color: #000;
 }
 
+button {
+    font-family: Inter !important;
+    font-size: 16px;
+}
+
 ::placeholder {
     color: #000;
     opacity: 1.0;
+}
+
+p {
+    font-size: 20px;
+    text-align: left;
+}
+
+span {
+    font-size: 20px;
 }
 
 /* Overall Architecture */
@@ -24,13 +39,13 @@ a {
 #__Register__form-normal__container {
     width: 100vw;
     height: 35vh;
-    margin: 25vh auto 5vh;
+    margin: 25vh auto 3.5vh;
 }
 
 #__Register__form-quick__container {
     width: 100vw;
-    height: 15vh;
-    margin: 0 auto 20vh;
+    height: 10vh;
+    margin: 0 auto 14vh;
 }
 
 #__Register__wallet__container {
@@ -38,12 +53,12 @@ a {
     width: 100%;
 }
 
-#__Register__new-wallet__container {
+#__Register__join-wallet__container {
     height: 100%;
     width: 100%;
 }
 
-#__Register__join-wallet__container {
+#__Register__new-wallet__container {
     height: 100%;
     width: 100%;
 }
@@ -60,13 +75,23 @@ a {
     background-color: #fff333;
 }
 
+.brand-logo {
+    height: 28.75px;
+    width: 87.26px;
+}
+
+.banner-padding {
+    height: 12.5vh;
+}
+
 #title-normal {
+    font-size: 20px;
     text-align: center;
 }
 
 #form-normal input {
-    font-size: 18px;
-    height: 54px;
+    font-size: 16px;
+    height: 55px;
     width: 280px;
 }
 
@@ -75,22 +100,26 @@ a {
 }
 
 .between {
-    padding: 0 3vw;
+    padding: 0 5.8vw;
 }
 
-/* #form-return, #form-submit {} */
+#form-submit {
+    height: 44px;
+    width: 80px;
+}
 
 #title-quick {
+    font-size: 20px;
     text-align: center;
 }
 
 a.quick_button {
-    font-size: 36px;
+    font-size: 30px;
 }
 
 a.quick_button i::before{
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     font-weight: 400;
 }
 
@@ -115,7 +144,8 @@ a.quick_button i::before{
 }
 
 #__walletInfo__bar {
-    padding-top: 25vh;
+    height: 20.5vh;
+    padding-top: 26vh;
 }
 
 .user-icons {
@@ -128,6 +158,10 @@ a.quick_button i::before{
 .fa-user {
     font-size: xxx-large;
     margin: 4vh 0;
+}
+
+#username {
+    font-size: 16px;
 }
 
 /* side-by-side buttons */
@@ -159,32 +193,45 @@ a.quick_button i::before{
 .menu-flex {
     display: flex;
     font-size: large;
-    height: 8.5vh;
+    height: 6.25vh;
     width: 30vw;
     align-items: center;
     justify-content: center;
-    margin-top: 6vh;
-}
-
-#__newWallet__bar {
-    height: 100vh;
-    line-height: 100vh;
-    text-align: center;
+    margin-top: 3.5vh;
+    box-shadow: 4px 4px 0px #000000;
+    border-radius: 6px;
 }
 
 #__joinWallet__bar {
-    height: 100vh;
-    line-height: 100vh;
-    text-align: center;
+    box-sizing: border-box;
+    height: 87.5vh;
+    /* line-height: 100vh; */
+    padding: 36.5vh 14vw 0;
+    text-align: right;
+}
+
+#__newWallet__bar {
+    box-sizing: border-box;
+    height: 87.5vh;
+    /* line-height: 100vh; */
+    padding: 38.5vh 14vw 0;
+    text-align: right;
 }
 
 .enter_button {
-    background-color: #c4c4c4;
-    border: 0 none;
+    background-color: #e5e5e5;
+    border: 3px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+    border-radius: 4px;
     display: inline-block;
     font-size: 24px;
     font-weight: 400;    
     height: 8vh;
     vertical-align: middle;
-    width: 292px
+    width: 280px
+}
+
+.wallet_submit {
+    font-size: 20px;
+    margin-top: 7.7vh;
 }

@@ -30,7 +30,7 @@ function change_page(page_number){
 }
 
 
-var price = 100;
+var person_number = 3;
 function add_checkbox(){
 	var container = document.getElementById("__Page6__bill__container");
 	
@@ -62,11 +62,8 @@ function add_checkbox2(){
 	var container = document.getElementById("__Page6__bill__container");
 	
 	var checkboxs = document.createElement("div");
-	checkboxs.id = "__Page6__bill_content2 " + price;
+	checkboxs.id = "__Page6__bill_content2 " + person_number;
 	checkboxs.classList.add("__Page6__bill_content2");
-	
-
-	
 	// initialize
 	var label = document.createElement("label");
 	label.id = "delete_id";
@@ -79,14 +76,24 @@ function add_checkbox2(){
 	
 	container.appendChild(label);
 	label.appendChild(checkboxs);
-	label.appendChild(document.createTextNode("4/31 COCO"+price));
+	label.appendChild(document.createTextNode("4/31 COCO"+person_number));
 	label.appendChild(br);
-	price++;
+	person_number++;
 }
 
 
 function change_checkbox_color(this_id){
-	/*console.log(document.getElementById(this_id).style.backgroundColor);*/
+	/*for(i=1;i<=5;i++){
+		if(document.getElementById("__Page6__bill_content2 "+ String(i))){
+			console.log("yes");
+			console.log(document.getElementById("__Page6__bill_content2 "+ String(i)));
+		}else{
+			console.log("no");
+			console.log(document.getElementById("__Page6__bill_content2 "+ String(i)));
+		}
+	}*/
+	/*console.log(document.getElementById(this_id).style.backgroundColor);
+	console.log(document.getElementById(this_id));*/
 	if (document.getElementById(this_id).style.backgroundColor == 'rgb(107, 220, 255)') {
         document.getElementById(this_id).style.backgroundColor = '#FFFFFF';
     }else{
@@ -95,11 +102,13 @@ function change_checkbox_color(this_id){
 }
 
 function lock_checkbox(){
-	/*console.log(document.getElementById(this_id).style.backgroundColor);*/
-	if (document.getElementById(this_id).style.backgroundColor == 'rgb(107, 220, 255)') {
-        document.getElementById(this_id).style.backgroundColor = '#FFFFFF';
-    }else{
-		document.getElementById(this_id).style.backgroundColor = '#6BDCFF';
+	for(i=1;i<=person_number;i++){
+		if (document.getElementById("__Page18__bill_content2 "+ String(i)).style.backgroundColor == 'rgb(107, 220, 255)') {
+			document.getElementById("__Page18__bill_content2 "+ String(i)).style.backgroundColor = '#C4C4C4';
+			document.getElementById("__Page18__bill_content2 "+ String(i)).style.border = "4.5px solid #C4C4C4";
+			document.getElementById("__Page18__bill_content2 "+ String(i)).parentNode.style.color = '#C4C4C4';
+			document.getElementById("__Page18__bill_content2 "+ String(i)).parentNode.onclick = function(){};
+		}
 	}
 }
 
@@ -118,7 +127,7 @@ function add_person(){
 }	
 
 function add_notification(){
-	var container = document.getElementById("__Page7__inform__container");
+	var container = document.getElementById("__Page7__inform__bar");
 	var label = document.createElement("label");
 	label.id = "delete_id";
 	label.classList.add("__Page7__inform");
@@ -193,12 +202,14 @@ function checkbill_openorclose(){ /*if mouse touchs the home star,the star will 
 	var __Page7__bottomimg3 = document.getElementById('__Page7__bottomimg3');  
 	if(checkbill_close==0){ //0 means open menu 1 means close menu
 		__Page7__bottomimg.style.transform = "rotate(90deg)";
+		__Page7__bottomimg.style.backgroundColor = '#C4C4C4';
 		__Page7__bottomimg2.style.transform = "translate(-8vh ,-8vh)";
 		__Page7__bottomimg3.style.transform = "translate(8vh ,-8vh)";
 		
 		checkbill_close=1;
 	}else{
 		__Page7__bottomimg.style.transform = "rotate(0deg)";
+		__Page7__bottomimg.style.backgroundColor = '#FFF333';
 		__Page7__bottomimg2.style.transform = "translate(0 ,0)";
 		__Page7__bottomimg3.style.transform = "translate(0 ,0)";
 		checkbill_close=0;

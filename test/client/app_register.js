@@ -19,7 +19,7 @@ $(document).ready(function() {
     })
   })
   // create a new wallet
-  $('#new-wallet input[type="submit"]').click((event) => {
+  $('#new-wallet button[type="submit"]').click((event) => {
     // event.preventDefault()
     $.get('./insertWallet', {
       wallet: $('#new-wallet input[name="Wallet"]').val(),

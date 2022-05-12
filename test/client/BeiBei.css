@@ -34,11 +34,11 @@ body {
 }
 
 .__Page__menu{
-	width: 6vw;
-    height: 6vw;
+	/*width: 6vw;
+    height: 6vw;*/
 	display: flex;
-	padding-top: 5vh;
-	padding-left: 5vw;
+	padding-top: 3vh;
+	padding-left: 0vw;
 	position: fixed;
 }
 
@@ -72,6 +72,7 @@ body {
 	height: 5vw;
     width: 5vw;
 	margin-top: calc(15vh);
+	padding-left: 2vw;
 }
 
 #__Page__menu__head{
@@ -191,7 +192,7 @@ body {
 #__Page6__result__container {
 	width: 100vw;
 	height: 27vh;
-	padding-top: 60vh;
+	padding-top: 58vh;
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
@@ -205,35 +206,43 @@ body {
 .__Page7__moneyimg{
 	background-size: contain;
     height: 15vh;
+	margin-bottom: 5vh;
 }
 
-#__Page7__helloword__container,#__Page7__informword__container {
+#__Page7__inform__container,#__Page18__result3-2__container {
 	width: 100vw;
-	height: 10vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    height: 50vh;
+    border-radius: 4px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-#__Page7__informword__container{
-	height: 5vh;
+#__Page7__inform__bar {
+	/*width: calc(43 * 2vw);
+    height: calc(50vh);  
+    margin: 8vh 7vw 0;
+    position: fixed;
+	display: flex;*/
+
+}
+.__Page7__inform__noteimg {
+	max-width: 80vw;
+    max-height: 40vh;
 }
 
-.__Page7__helloword,.__Page7__informword{
-	font: 5vw Helvetica bold Condensed;
-}
 
-#__Page7__inform__container {
-	width: 90vw;
-	height: 25vh;
-	display: flex;
-	margin: 5vw;
-	border-radius: 4vh;
-	background-color: #ADADAD;
-	overflow:auto;
-	position:fixed;
-	flex-direction: column;
-	text-align: left;
+#__Page7__inform {
+	width: calc(43 * 2vw);
+    height: calc(38 * 2vw - 11vw);
+    display: flex;
+    margin-top: 11vw;
+    overflow: auto;
+    position: fixed;
+    flex-direction: column;
+    text-align: left;
 }
 .__Page7__inform{
 	font: 5vw Helvetica bold Condensed;
@@ -253,16 +262,23 @@ body {
     left: 40vw;
 }
 
-.__Page7__bottomimg {
-	width: 8vh;
-    height: 8vh;
-    border: 0.7vw solid #ffbc51;
-    background-color: #ADADAD;
+#__Page7__bottomimg,#__Page7__bottomimg2,#__Page7__bottomimg3 {
+	width: 6vh;
+    height: 6vh;
+    background-color: #FFF333;
     border-radius: 500px;
     position: fixed;
-	bottom: 5vh;
-    left: calc((100vw - 8vh)/2);
-	transition: 0.5s;
+    bottom: 5vh;
+    left: calc((100vw - 6vh)/2);
+    transition: 0.5s;
+    border: 2.5px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+}
+.__Page7__bottomimg{
+	width: 4vh;
+    height: 4vh;
+    top: calc(50% - 4vh/2);
+    position: relative;
 }
 #__Page7__bottomimg2,#__Page7__bottomimg3{
 	z-index:-1;
@@ -302,8 +318,8 @@ body {
 
 #__Page18__result3-2__container{
 	width: 100vw;
-	height: 27vh;
-	padding-top: 10vh;
+	height: 50vh;
+	padding-top: 0vh;
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
@@ -360,7 +376,7 @@ body {
 	display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     background: #FFF333;
     width: 100vw;
     height: 29vh;
@@ -421,10 +437,19 @@ body {
 	flex-direction: column;
 }
 .__Page16__pocketimg {
-    width: 6vw;
-    height: 6vw;
-    background-color: #6BDCFF;
-    border-radius: 500px;
+    padding-left: 2vw;
+    width: 5vw;
+    height: 5vw;   
+}
+
+.__Page16__linkimg {
+	padding-left: 2vw;
+    width: calc(2.1vw*2.5);
+    height: calc(1.3vw*2.5);
+}
+
+.__Page16__pocketname,.__Page16__pocketimg {
+	margin-bottom: 3vh;
 }
 
 .__Page16__userimg {
