@@ -1,10 +1,10 @@
 $(document).ready(function() {
   // open side bar
-  $('#__Page__menu').click((event) => { 
-    $.get('./showWalletName', {}, (data) => {
-      $('#__Page__menu__head_word').text(data) 
-    })
-  })
+  // $('#__Page__menu').click((event) => { 
+  //   $.get('./showWalletName', {}, (data) => {
+  //     $('#__Page__menu__head_word').text(data) 
+  //   })
+  // })
   // switch to the 錢包總覽
   $('#__Page__menu__page5').click((event) => {
     $.get('./showWallet', {}, (data) => {

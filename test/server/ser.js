@@ -189,8 +189,8 @@ app.post('/switchWallet', (req, res) => {
 })
 // set nickname
 app.get('/setNickname', (req, res) => {
-  const uid = req.session.uid, wid
-  const nick  = req.query.nickname
+  let uid = req.session.uid, wid
+  let nick  = req.query.nickname
   let sql = `SELECT focusWallet FROM user WHERE uid=${uid}`
   connection.query(sql, (err, results) => {
     if(err) throw err
@@ -396,7 +396,7 @@ app.get('/getNotification', (req, res) => {
   }
   let sql = `SELECT message FROM notification where wid=(SELECT focusWallet FROM user WHERE uid=${param.uid}) ORDER BY idx DESC`
   queryPromise(sql).then(result => {
-    res.send(result.)
+    res.send(result.message)
   }).catch(err => {
     console.log(err);
     res.status(500).send(err);
